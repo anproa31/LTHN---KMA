@@ -1,0 +1,157 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET,DATA,READONLY
+    2 00000000 20001000        DCD              0x20001000
+    3 00000004 00000000        DCD              start
+    4 00000008                 ALIGN
+    5 00000008 00000001 
+              00000002 
+              00000003 
+              00000004 
+              00000005 chuoi   DCD              1,2,3,4,5
+    6 0000001C                 AREA             KQ,DATA ,READWRITE
+    7 00000000 00000000 
+                       tong    DCD              0
+    8 00000004                 AREA             mycode,CODE, READONLY
+    9 00000000                 EXPORT           start
+   10 00000000                 ENTRY
+   11 00000000         
+   12 00000000         start
+   13 00000000         ;===================
+   14 00000000 00000005 
+                       pt      EQU              5
+   15 00000000 F04F 0000       MOV              R0,#0
+   16 00000004 4908            LDR              R1, =chuoi  ;lay dia chi
+   17 00000006 F85F 2004       LDR              R2, chuoi   ; lay gia tri
+   18 0000000A F04F 0301       MOV              R3,#1
+   19 0000000E F04F 0405       LDR              R4, =pt
+   20 00000012         loop
+   21 00000012 42A3            CMP              R3,R4
+   22 00000014 D805            BHI              thoat
+   23 00000016 F851 2B04       LDR              R2,[R1],#4  ; gan Gia tri cua D
+                                                            ia chi R1 cho R2 sa
+                                                            u do do tang thang 
+                                                            R1 + 4 0x20001000 0
+                                                            x20001004
+   24 0000001A 4410            ADD              R0,R2       ;R0 = R0 + R2
+   25 0000001C F103 0301       ADD              R3,#1
+   26 00000020 E7F7            B                loop
+   27 00000022         thoat
+   28 00000022 4D02            LDR              R5, =tong
+   29 00000024 6028            STR              R0,[R5]     ; luu tru gia tri  
+                                                            R0 vao dia chi R5
+   30 00000026 DF11            SWI              &11
+   31 00000028         ;===================
+   32 00000028                 END
+              00000000 
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai1.d
+ -o.\bai1.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai1.lst bai1.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file bai1.s
+   Uses
+      None
+Comment: RESET unused
+chuoi 00000008
+
+Symbol: chuoi
+   Definitions
+      At line 5 in file bai1.s
+   Uses
+      At line 16 in file bai1.s
+      At line 17 in file bai1.s
+
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+KQ 00000000
+
+Symbol: KQ
+   Definitions
+      At line 6 in file bai1.s
+   Uses
+      None
+Comment: KQ unused
+tong 00000000
+
+Symbol: tong
+   Definitions
+      At line 7 in file bai1.s
+   Uses
+      At line 28 in file bai1.s
+Comment: tong used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+loop 00000012
+
+Symbol: loop
+   Definitions
+      At line 20 in file bai1.s
+   Uses
+      At line 26 in file bai1.s
+Comment: loop used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 8 in file bai1.s
+   Uses
+      None
+Comment: mycode unused
+start 00000000
+
+Symbol: start
+   Definitions
+      At line 12 in file bai1.s
+   Uses
+      At line 3 in file bai1.s
+      At line 9 in file bai1.s
+
+thoat 00000022
+
+Symbol: thoat
+   Definitions
+      At line 27 in file bai1.s
+   Uses
+      At line 22 in file bai1.s
+Comment: thoat used once
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+pt 00000005
+
+Symbol: pt
+   Definitions
+      At line 14 in file bai1.s
+   Uses
+      At line 19 in file bai1.s
+Comment: pt used once
+1 symbol
+341 symbols in table

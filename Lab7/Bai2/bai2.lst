@@ -1,0 +1,240 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000 20002000        DCD              0X20002000
+    3 00000004 00000000        DCD              MAIN
+    4 00000008                 AREA             DATA1, DATA, READONLY
+    5 00000000         MATRAN1
+    6 00000000 00000001 
+              00000002 
+              00000003 
+              00000004         DCD              1,2,3,4
+    7 00000010 00000002 
+              00000005 
+              00000002 
+              FFFFFFFE         DCD              2,5,2,-2
+    8 00000020 00000002 
+              FFFFFFFD 
+              00000004 
+              00000001         DCD              2,-3,4,1
+    9 00000030 FFFFFFF9 
+              00000002 
+              FFFFFFFE 
+              00000009         DCD              -7,2,-2,9
+   10 00000040 00000010 
+                       KT1     DCD              16          ; KICH THUOC MA TRA
+                                                            N
+   11 00000044                 AREA             DATA2, DATA, READONLY
+   12 00000000         MATRAN2
+   13 00000000 00000001 
+              00000002 
+              00000003 
+              00000004         DCD              1,2,3,4
+   14 00000010 00000002 
+              00000005 
+              00000002 
+              FFFFFFFE         DCD              2,5,2,-2
+   15 00000020 00000002 
+              FFFFFFFD 
+              00000004 
+              00000001         DCD              2,-3,4,1
+   16 00000030 FFFFFFF9 
+              00000002 
+              FFFFFFFE 
+              00000009         DCD              -7,2,-2,9
+   17 00000040 00000010 
+                       KT2     DCD              16          ; KICH THUOC MA TRA
+                                                            N
+   18 00000044                 AREA             KQ, DATA, READWRITE
+   19 00000000 00000000 
+                       KETQUA  DCD              0
+   20 00000004                 AREA             HUU, CODE, READONLY
+   21 00000000                 ENTRY
+   22 00000000         MAIN
+   23 00000000 480B            LDR              R0, =KETQUA ; DIA CHI MA TRAN K
+                                                            Q
+   24 00000002 F85F 3004       LDR              R3, KT1     ; SO PHAN TU MA TRA
+                                                            N 1
+   25 00000006 F85F 4004       LDR              R4, KT2     ; SO PHAN TU MA TRA
+                                                            N 2
+   26 0000000A 42A3            CMP              R3, R4
+   27 0000000C D110            BNE              STOP        ; SO PHAN TU KHAC N
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+                                                            HAU <=> MA TRAN K C
+                                                            UNG CAP, K THE CONG
+                                                            
+   28 0000000E 4909            LDR              R1, =MATRAN1
+   29 00000010 4A09            LDR              R2, =MATRAN2
+   30 00000012 F04F 0700       MOV              R7, #0      ; HIEU
+   31 00000016         LOOP
+   32 00000016 F851 5B04       LDR              R5, [R1], #4 ; LAY PHAN TU RA T
+                                                            U MATRAN, CAP NHAT 
+                                                            DIA CHI MATRAN DEN 
+                                                            VI TRI TIEP THEO
+   33 0000001A F852 6B04       LDR              R6, [R2], #4
+   34 0000001E EBA5 0706       SUB              R7, R5, R6  ; TINH HIEU 
+   35 00000022 F840 7B04       STR              R7, [R0], #4 ; LUU LAI VAO MA T
+                                                            RAN KET QUA
+   36 00000026 F1A3 0301       SUB              R3, #1      ; GIAM BIEN DIEM SO
+                                                             PHAN TU
+   37 0000002A 2B00            CMP              R3, #0
+   38 0000002C D000            BEQ              STOP
+   39 0000002E E7F2            B                LOOP
+   40 00000030         STOP
+   41 00000030                 END
+              00000000 
+              00000000 
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai2.d
+ -o.\bai2.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai2.lst bai2.S
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file bai2.S
+   Uses
+      None
+Comment: RESET unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DATA1 00000000
+
+Symbol: DATA1
+   Definitions
+      At line 4 in file bai2.S
+   Uses
+      None
+Comment: DATA1 unused
+KT1 00000040
+
+Symbol: KT1
+   Definitions
+      At line 10 in file bai2.S
+   Uses
+      At line 24 in file bai2.S
+Comment: KT1 used once
+MATRAN1 00000000
+
+Symbol: MATRAN1
+   Definitions
+      At line 5 in file bai2.S
+   Uses
+      At line 28 in file bai2.S
+Comment: MATRAN1 used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DATA2 00000000
+
+Symbol: DATA2
+   Definitions
+      At line 11 in file bai2.S
+   Uses
+      None
+Comment: DATA2 unused
+KT2 00000040
+
+Symbol: KT2
+   Definitions
+      At line 17 in file bai2.S
+   Uses
+      At line 25 in file bai2.S
+Comment: KT2 used once
+MATRAN2 00000000
+
+Symbol: MATRAN2
+   Definitions
+      At line 12 in file bai2.S
+   Uses
+      At line 29 in file bai2.S
+Comment: MATRAN2 used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+KETQUA 00000000
+
+Symbol: KETQUA
+   Definitions
+      At line 19 in file bai2.S
+   Uses
+      At line 23 in file bai2.S
+Comment: KETQUA used once
+KQ 00000000
+
+Symbol: KQ
+   Definitions
+      At line 18 in file bai2.S
+   Uses
+      None
+Comment: KQ unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+HUU 00000000
+
+Symbol: HUU
+   Definitions
+      At line 20 in file bai2.S
+   Uses
+      None
+Comment: HUU unused
+LOOP 00000016
+
+Symbol: LOOP
+   Definitions
+      At line 31 in file bai2.S
+   Uses
+      At line 39 in file bai2.S
+Comment: LOOP used once
+MAIN 00000000
+
+Symbol: MAIN
+   Definitions
+      At line 22 in file bai2.S
+   Uses
+      At line 3 in file bai2.S
+Comment: MAIN used once
+STOP 00000030
+
+Symbol: STOP
+   Definitions
+      At line 40 in file bai2.S
+   Uses
+      At line 27 in file bai2.S
+      At line 38 in file bai2.S
+
+4 symbols
+345 symbols in table

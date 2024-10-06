@@ -1,0 +1,94 @@
+ARM Linker, 5.03 [Build 76] [MDK-ARM Standard]
+
+==============================================================================
+
+Section Cross References
+
+    bai3.o(RESET) refers to bai3.o(HUU) for MAIN
+    bai3.o(HUU) refers to bai3.o(KETQUA) for KQ
+
+
+==============================================================================
+
+Image Symbol Table
+
+    Local Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    bai3.S                                   0x00000000   Number         0  bai3.o ABSOLUTE
+    RESET                                    0x08000000   Section        8  bai3.o(RESET)
+    HUU                                      0x08000008   Section       64  bai3.o(HUU)
+    MAIN                                     0x08000009   Thumb Code     0  bai3.o(HUU)
+    GIAITHUA                                 0x0800002d   Thumb Code    22  bai3.o(HUU)
+    KETQUA                                   0x20000000   Section        4  bai3.o(KETQUA)
+    KQ                                       0x20000000   Data           4  bai3.o(KETQUA)
+
+    Global Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    BuildAttributes$$THM_ISAv4$P$D$K$B$S$PE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$EBA8$STANDARDLIB$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+
+
+
+==============================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x08000009
+
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000004c, Max: 0x00020000, ABSOLUTE)
+
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00000048, Max: 0x00020000, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x08000000   0x00000008   Data   RO            1    RESET               bai3.o
+    0x08000008   0x00000040   Code   RO            3  * HUU                 bai3.o
+
+
+    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00000004, Max: 0x00002000, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x00000004   Data   RW            2    KETQUA              bai3.o
+
+
+==============================================================================
+
+Image component sizes
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
+
+        64          6          8          4          0        308   bai3.o
+
+    ----------------------------------------------------------------------
+        64          6          8          4          0        308   Object Totals
+         0          0          0          0          0          0   (incl. Generated)
+         0          0          0          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+         0          0          0          0          0          0   Library Totals
+         0          0          0          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+==============================================================================
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
+
+        64          6          8          4          0        308   Grand Totals
+        64          6          8          4          0        308   ELF Image Totals
+        64          6          8          4          0          0   ROM Totals
+
+==============================================================================
+
+    Total RO  Size (Code + RO Data)                   72 (   0.07kB)
+    Total RW  Size (RW Data + ZI Data)                 4 (   0.00kB)
+    Total ROM Size (Code + RO Data + RW Data)         76 (   0.07kB)
+
+==============================================================================
+

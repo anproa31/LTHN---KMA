@@ -1,0 +1,28 @@
+/*	AREA RESET,DATA,READONLY
+		DCD 0x20000000
+		DCD Start
+N DCD 15
+M DCD 5
+Ketqua DCD 0
+Sodu DCD 0
+	AREA MYCODE,CODE,READONLY
+		ENTRY
+Chia PROC
+	SUB R0,R1
+	ADD R2,#1
+	CMP R0,R1
+	BGE Chia
+	LDR R3,=Ketqua
+	STR R2,[R3]
+	LDR R3,=Sodu
+	STR R0,[R3]
+	BX LR
+	ENDP
+Start PROC
+	LDR R0,N
+	LDR R1,M
+	MOV R2,#0
+	BL Chia
+Stop
+	B Stop
+	END*/

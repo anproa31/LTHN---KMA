@@ -1,0 +1,150 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         
+    2 00000000                 AREA             RESET, DATA,READONLY
+    3 00000000 20001000        DCD              0x20001000
+    4 00000004 00000000        DCD              start
+    5 00000008 00000006 
+                       N       DCD              6
+    6 0000000C                 AREA             mycode,CODE,READONLY
+    7 00000000                 ENTRY
+    8 00000000         
+    9 00000000         start
+   10 00000000         ;======================
+   11 00000000 F04F 0000       MOV              R0,#0       ;TONG CHAN R0 = 0
+   12 00000004 F04F 0100       MOV              R1,#0       ; TONG LE R1 =0
+   13 00000008 F85F 2004       LDR              R2, N       ; R2 = 3
+   14 0000000C F04F 0301       MOV              R3,#1       ; R3 = 1
+   15 00000010 F04F 0402       MOV              R4,#2       ; R4 = 2
+   16 00000014         
+   17 00000014         
+   18 00000014         loopsole
+   19 00000014 4293            CMP              R3,R2       ;so sanh R3 voi R2
+   20 00000016 DC03            BGT              ketthuctongle 
+                                                            ; Ket thuc tong le
+   21 00000018 4419            ADD              R1,R3       ; R1 = R1 +R3
+   22 0000001A F103 0302       ADD              R3,#2       ; R3 = R3 + 2
+   23 0000001E E7F9            B                loopsole
+   24 00000020         ketthuctongle
+   25 00000020         
+   26 00000020         loopsochan
+   27 00000020 4294            CMP              R4,R2       ;so sanh R4 voi R2
+   28 00000022 DC03            BGT              ketthuctongchan 
+                                                            ; Ket thuc tong le
+   29 00000024 4420            ADD              R0,R4       ; R1 = R1 +R4
+   30 00000026 F104 0402       ADD              R4,#2       ; R4 = R4 + 2
+   31 0000002A E7F9            B                loopsochan
+   32 0000002C         ketthuctongchan
+   33 0000002C         
+   34 0000002C E7FE    stop    B                stop
+   35 0000002E         
+   36 0000002E         END
+                       
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai2.d
+ -o.\bai2.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai2.lst bai2.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+N 00000008
+
+Symbol: N
+   Definitions
+      At line 5 in file bai2.s
+   Uses
+      At line 13 in file bai2.s
+Comment: N used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file bai2.s
+   Uses
+      None
+Comment: RESET unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+END 0000002E
+
+Symbol: END
+   Definitions
+      At line 36 in file bai2.s
+   Uses
+      None
+Comment: END unused
+ketthuctongchan 0000002C
+
+Symbol: ketthuctongchan
+   Definitions
+      At line 32 in file bai2.s
+   Uses
+      At line 28 in file bai2.s
+Comment: ketthuctongchan used once
+ketthuctongle 00000020
+
+Symbol: ketthuctongle
+   Definitions
+      At line 24 in file bai2.s
+   Uses
+      At line 20 in file bai2.s
+Comment: ketthuctongle used once
+loopsochan 00000020
+
+Symbol: loopsochan
+   Definitions
+      At line 26 in file bai2.s
+   Uses
+      At line 31 in file bai2.s
+Comment: loopsochan used once
+loopsole 00000014
+
+Symbol: loopsole
+   Definitions
+      At line 18 in file bai2.s
+   Uses
+      At line 23 in file bai2.s
+Comment: loopsole used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 6 in file bai2.s
+   Uses
+      None
+Comment: mycode unused
+start 00000000
+
+Symbol: start
+   Definitions
+      At line 9 in file bai2.s
+   Uses
+      At line 4 in file bai2.s
+Comment: start used once
+stop 0000002C
+
+Symbol: stop
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+   Definitions
+      At line 34 in file bai2.s
+   Uses
+      At line 34 in file bai2.s
+Comment: stop used once
+8 symbols
+340 symbols in table

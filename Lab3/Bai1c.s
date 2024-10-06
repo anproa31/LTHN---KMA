@@ -1,0 +1,24 @@
+/*	AREA RESET,DATA,READONLY
+		DCD 0x20000000
+		DCD Start
+N DCD 5
+tong_giai_thua DCD 0
+	AREA MYCODE,CODE,READONLY
+		ENTRY
+TinhGiaiThua PROC
+	MUL R0,R2
+	ADD R2,#1
+	CMP R2,R1
+	BLE TinhGiaiThua
+	BX LR
+	ENDP
+Start PROC
+	MOV R0,#1
+	LDR R1,N
+	MOV R2,#1
+	BL TinhGiaiThua
+	LDR R3,=tong_giai_thua
+	STR R0,[R3]
+Stop
+	B Stop
+	END*/

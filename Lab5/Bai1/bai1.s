@@ -1,0 +1,145 @@
+
+	INCLUDE CS2_CS8.s
+	AREA RESET,DATA,READONLY
+		DCD 0x20002000
+		DCD start
+	ALIGN
+chon DCD 1	
+;=======================
+Coso16 DCB 0xB,0xD,0xA,0x5
+SPT16 DCB 4
+;=======================
+	AREA RESET1,DATA,READONLY
+Coso10_CS2 DCD 20
+
+Coso10 DCD 1000
+;=======================
+;CO SO 2 SANG 8
+CoSo2_CS8 DCB 0,1,0,1,0,1,1,1,0
+SPT28 DCB 3 ; 9 BIT cho ra 3 ki tu
+
+
+DULIEU816 DCB 7,5,2,1
+SPT816 DCB 4
+
+
+	AREA KQ,DATA,READWRITE
+Coso1602 DCB 0
+Coso1002 DCB 0
+Coso1016 DCB 0
+Coso28 DCB 0
+KQ816 DCB 0
+	AREA Mycode,CODE,READONLY
+	EXPORT start
+	ENTRY
+start
+;=====================
+	LDR R0,chon
+	CMP R0,#1
+	BEQ H16_H2
+	CMP R0,#2
+	BEQ H10_H2
+	CMP R0,#3
+	BEQ H10_H16
+	CMP R0,#4
+	BEQ H2_H8
+	CMP R0,#5
+	BEQ H8_H16
+	CMP R0,#6
+	BEQ H16_H8
+	CMP R0,#7
+	BEQ H2_H10
+
+THOAT
+stop B stop
+;================================================================================================
+H16_H2 PROC
+	LDRB R0,SPT16 ;R0 = 4
+	LDR R1,=Coso16 ;DIA CHI DAU TIEN
+	ADD R1,R0 ; CHAY DEN DIA CHI CUOI CUNG
+	SUB R1,#1 ;GIAM 1
+	LDR R2, =Coso1602
+	ADD R2,#16 ;CAP NHAT DIA CHI DE LUU NGUOC
+	MOV R4,#2 ;DUNG DE CHIA CO SO
+LOOP	
+	CMP R0,#0 ;KIEM TRA R0 VOI 0
+	BEQ STOP1 ; BANG 0 THI DUNG
+	LDRB R3,[R1],#-1 ;GIA TRI R3 BANG DIA CHI R1 -1
+	MOV R7,#4 ;MOT DU LIEU DC DOC VAO 4 BYTE THAY CHO 4 BIT
+	
+LOOP1	
+	UDIV R5,R3,R4 ;CHIA LAY THUONG VD 15/2 = 7 DU 1 HOAC 18/2 = 9 DU 0
+	MUL R6,R5,R4 ; DUNG PHEP NHAN DE LAY SO DU VD 7x2 = 14 => 15-14 du 1
+	SUB R3,R6 ; KET QUA CUA PHEP SUB LA SO DU CO THE LA 1 HOAC 0
+	STRB R3,[R2],#-1 ;GIA TRI R3 SE DC GAN VAO DIA CHI CUOI CUNG CUA CHUOI
+	; G N D?A CH? CUA R2 VAO R
+	SUB R7,#1 ;GIAM DI 1 VI F = 1111 TA DC SO DAU TIEN LA 1 HOAC 0 SUY RA CON 111 CHIA DC CHO VAO
+	CMP R5,#0 ;KIEM TRA XEM DA CHIA HET CHUA
+	MOV R3,R5 ;GAN GT R5 VAO R3 DE TIEP TUC CHIA
+	BGT LOOP1 ;TIEP TUC CHIA NEU > 0
+	CMP R7,#0 ; KIEM TRA CHO DEN KHI NAO R7 = 0 CO NGHIA LA DA DU 4 BYTE
+	BEQ NEXT1 ; BANG THI GIA R0 DI 1 DE TIEP TUC SO TIEP THEO
+SAVE1
+	STRB R5,[R2],#-1 ;NEU MA CHIA HET MA R7 VAN CHUA BANG 0 THI TA TRU CHO DEN KHI R7 = 0
+	SUB R7,#1 ; VD NHU 0001 LA CHIA DEN 1 LA HET CON 000 THI SE DUNG CAI NAY
+	CMP R7,#0
+	BGT SAVE1 ; LUU VAO KHIA CHIA HET THI NEXT XUONG
+	
+	
+NEXT1
+	SUB R0,#1 ;TIEP TUC CHO KI TU TIEP THEO
+	B LOOP
+	
+STOP1	
+	B THOAT
+	BX LR
+	ENDP
+;================================================================================================
+H10_H2 PROC
+	LDRB R0, Coso10_CS2
+	LDR R1, =Coso1002
+	ADD R1, #100
+	MOV R2, #2
+LOOP2
+	CMP R0,#2
+	BLT STOP2
+	UDIV R3, R0, R2; R3 LA THUONG
+	MUL R4, R3, R2
+	SUB R0, R0, R4; R0 LA DU
+	STRB R0, [R1], #-1
+	MOV R0, R3; DEM THUONG DI CHIA TIEP
+	B LOOP2
+STOP2
+	STRB R0, [R1]
+	B THOAT
+	BX LR
+	ENDP
+;================================================================================================
+H10_H16 PROC
+	LDR R0,Coso10 ;R0 = 1000
+	LDR R1,=Coso1016
+	ADD R1,#100
+	MOV R2,#16
+LOOP5
+	UDIV R3,R0,R2 ; CHIA R0/R2 = R3
+	MUL R4,R3,R2 ;NHAN R4 = R3XR2
+	SUB R4,R0,R4 ; KET QUA DU
+	STRB R4,[R1],#-1 ;LUU KET QUA VAO DIA CHI ROI GIAM DI 1
+	CMP R3,#0 
+	MOV R0,R3 ;GAN R3 VAO R0 DE CHIA TIEP
+	BGT LOOP5
+	ADD R1,#1
+	B THOAT
+	BX LR
+	ENDP
+;================================================================================================
+H16_H8 PROC
+	BX LR
+	ENDP
+;================================================================================================
+H2_H10 PROC
+	BX LR
+	ENDP
+;================================================================================================
+	END
+	

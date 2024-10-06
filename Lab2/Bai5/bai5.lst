@@ -1,0 +1,217 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET , DATA ,READONLY
+    2 00000000 20001000        DCD              0x20001000
+    3 00000004 00000000        DCD              start
+    4 00000008 00000001 
+              FFFFFFFF 
+              FFFFFFFF MaTran  DCD              1,-1,-1
+    5 00000014 00000002 
+              FFFFFFFE 
+              00000002         DCD              2,-2,2
+    6 00000020 FFFFFFFD 
+              00000003 
+              FFFFFFFD         DCD              -3,3,-3
+    7 0000002C                 AREA             KQ,DATA ,READWRITE
+    8 00000000 00000000 
+                       SoAm    DCD              0
+    9 00000004 00000000 
+                       SoDuong DCD              0
+   10 00000008                 AREA             mycode ,CODE ,READONLY
+   11 00000000                 EXPORT           start
+   12 00000000                 ENTRY
+   13 00000000         start
+   14 00000000         ;============================
+   15 00000000 00000009 
+                       pt      EQU              9
+   16 00000000 F04F 0000       MOV              R0,#0       ;DUONG
+   17 00000004 F04F 0100       MOV              R1,#0       ;AM
+   18 00000008 4B0A            LDR              R3,=MaTran  ;lay dia chi
+   19 0000000A 681C            LDR              R4,[R3]     ;lay gia tri
+   20 0000000C F04F 0509       LDR              R5,=pt
+   21 00000010         
+   22 00000010         loop
+   23 00000010 2D00            CMP              R5,#0       ; so sanH R5 vaf 0
+   24 00000012 D00E            BEQ              thoat       ;Bang thi ket thuc
+   25 00000014 F853 4B04       LDR              R4,[R3], #4 ; lay gia tri tu di
+                                                            a chi R3 + R2
+   26 00000018 2C00            CMP              R4,#0       ; SO SANH R4 VOI 0
+   27 0000001A DC01            BGT              lasoduong   ; > THI NHAY SANG S
+                                                            O DUONG
+   28 0000001C DB03            BLT              lasoam      ; < THI NHAY SANG A
+                                                            M
+   29 0000001E E005            B                tiep        ; BANG 0 THI DEN B 
+                                                            TIEP
+   30 00000020         
+   31 00000020         lasoduong
+   32 00000020 F100 0001       ADD              R0,#1       ;CONG R0 LEN 1
+   33 00000024 E002            B                tiep
+   34 00000026         lasoam
+   35 00000026 F101 0101       ADD              R1,#1       ; + R1 LEN 1
+   36 0000002A E7FF            B                tiep
+   37 0000002C         tiep
+   38 0000002C F1A5 0501       SUB              R5,#1       ; phan tu xoa pt vu
+                                                            a tinh
+   39 00000030 E7EE            B                loop
+   40 00000032         
+   41 00000032         thoat
+   42 00000032         
+   43 00000032         
+   44 00000032         ;============================
+   45 00000032                 END
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+              00 00 00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai5.d
+ -o.\bai5.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai5.lst bai5.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+MaTran 00000008
+
+Symbol: MaTran
+   Definitions
+      At line 4 in file bai5.s
+   Uses
+      At line 18 in file bai5.s
+Comment: MaTran used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file bai5.s
+   Uses
+      None
+Comment: RESET unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+KQ 00000000
+
+Symbol: KQ
+   Definitions
+      At line 7 in file bai5.s
+   Uses
+      None
+Comment: KQ unused
+SoAm 00000000
+
+Symbol: SoAm
+   Definitions
+      At line 8 in file bai5.s
+   Uses
+      None
+Comment: SoAm unused
+SoDuong 00000004
+
+Symbol: SoDuong
+   Definitions
+      At line 9 in file bai5.s
+   Uses
+      None
+Comment: SoDuong unused
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+lasoam 00000026
+
+Symbol: lasoam
+   Definitions
+      At line 34 in file bai5.s
+   Uses
+      At line 28 in file bai5.s
+Comment: lasoam used once
+lasoduong 00000020
+
+Symbol: lasoduong
+   Definitions
+      At line 31 in file bai5.s
+   Uses
+      At line 27 in file bai5.s
+Comment: lasoduong used once
+loop 00000010
+
+Symbol: loop
+   Definitions
+      At line 22 in file bai5.s
+   Uses
+      At line 39 in file bai5.s
+Comment: loop used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 10 in file bai5.s
+   Uses
+      None
+Comment: mycode unused
+start 00000000
+
+Symbol: start
+   Definitions
+      At line 13 in file bai5.s
+   Uses
+      At line 3 in file bai5.s
+      At line 11 in file bai5.s
+
+thoat 00000032
+
+Symbol: thoat
+   Definitions
+      At line 41 in file bai5.s
+   Uses
+      At line 24 in file bai5.s
+Comment: thoat used once
+tiep 0000002C
+
+Symbol: tiep
+   Definitions
+      At line 37 in file bai5.s
+   Uses
+      At line 29 in file bai5.s
+      At line 33 in file bai5.s
+      At line 36 in file bai5.s
+
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+7 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+pt 00000009
+
+Symbol: pt
+   Definitions
+      At line 15 in file bai5.s
+   Uses
+      At line 20 in file bai5.s
+Comment: pt used once
+1 symbol
+345 symbols in table

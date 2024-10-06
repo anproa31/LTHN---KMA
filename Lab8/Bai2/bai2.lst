@@ -1,0 +1,172 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;; ma hoa dichj vong
+    2 00000000                 area             reset,data,readonly
+    3 00000000 20002000        dcd              0x20002000
+    4 00000004 00000000        dcd              main
+    5 00000008 41 48 49 
+              45 4E 20 
+              4D 45 4E 
+              48 00    chuoi   dcb              "AHIEN MENH",0
+    6 00000013                 area             data2,data,readonly
+    7 00000000 51 57 45 
+              52 54 59 
+              55 49 4F 
+              50 41 53 
+              44 46 47 
+              48 4A 4B 
+              4C 5A 58 
+              43 56 42 
+              4E 4D 00 subtitution
+                               dcb              "QWERTYUIOPASDFGHJKLZXCVBNM",0
+    8 0000001B                 area             data1, data, readwrite
+    9 00000000 00      result  dcb              0
+   10 00000001                 area             huu, code, readonly
+   11 00000000                 entry
+   12 00000000         main
+   13 00000000 4807            ldr              r0, =subtitution
+   14 00000002 4908            ldr              r1, =chuoi
+   15 00000004 4A08            ldr              r2, =result
+   16 00000006         loop
+   17 00000006 F811 3B01       ldrb             r3, [r1], #1 ; doc du lieu
+   18 0000000A 2B00            cmp              r3, #0
+   19 0000000C D008            beq              stop
+   20 0000000E 2B20            cmp              r3, #32
+   21 00000010 461C            mov              r4, r3
+   22 00000012 D002            beq              tiep_tuc
+   23 00000014 F1A3 0341       sub              r3, #65     ; de biet thu tu cu
+                                                            a ki tu trong bang 
+                                                            chu cai
+   24 00000018 5CC4            ldrb             r4, [r0, r3]
+   25 0000001A         tiep_tuc
+   26 0000001A F802 4B01       strb             r4, [r2], #1
+   27 0000001E E7F2            b                loop
+   28 00000020         stop
+   29 00000020                 end
+              00000000 
+              00000000 
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai2.d
+ -o.\bai2.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai2.lst bai2.S
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+chuoi 00000008
+
+Symbol: chuoi
+   Definitions
+      At line 5 in file bai2.S
+   Uses
+      At line 14 in file bai2.S
+Comment: chuoi used once
+reset 00000000
+
+Symbol: reset
+   Definitions
+      At line 2 in file bai2.S
+   Uses
+      None
+Comment: reset unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+data2 00000000
+
+Symbol: data2
+   Definitions
+      At line 6 in file bai2.S
+   Uses
+      None
+Comment: data2 unused
+subtitution 00000000
+
+Symbol: subtitution
+   Definitions
+      At line 7 in file bai2.S
+   Uses
+      At line 13 in file bai2.S
+Comment: subtitution used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+data1 00000000
+
+Symbol: data1
+   Definitions
+      At line 8 in file bai2.S
+   Uses
+      None
+Comment: data1 unused
+result 00000000
+
+Symbol: result
+   Definitions
+      At line 9 in file bai2.S
+   Uses
+      At line 15 in file bai2.S
+Comment: result used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+huu 00000000
+
+Symbol: huu
+   Definitions
+      At line 10 in file bai2.S
+   Uses
+      None
+Comment: huu unused
+loop 00000006
+
+Symbol: loop
+   Definitions
+      At line 16 in file bai2.S
+   Uses
+      At line 27 in file bai2.S
+Comment: loop used once
+main 00000000
+
+Symbol: main
+   Definitions
+      At line 12 in file bai2.S
+   Uses
+      At line 4 in file bai2.S
+Comment: main used once
+stop 00000020
+
+Symbol: stop
+   Definitions
+      At line 28 in file bai2.S
+   Uses
+      At line 19 in file bai2.S
+Comment: stop used once
+tiep_tuc 0000001A
+
+Symbol: tiep_tuc
+   Definitions
+      At line 25 in file bai2.S
+   Uses
+      At line 22 in file bai2.S
+Comment: tiep_tuc used once
+5 symbols
+343 symbols in table

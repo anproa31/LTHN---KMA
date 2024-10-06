@@ -1,0 +1,1513 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET,DATA,READONLY
+    2 00000000 20000000        DCD              0x20000000
+    3 00000004 00000000        DCD              MAIN
+    4 00000008 00000000 
+                       SUM_BAI1A
+                               DCD              0
+    5 0000000C 0000000F 
+                       N_BAI1B DCD              15
+    6 00000010 00000019 
+                       M_BAI1B DCD              25
+    7 00000014 00000000 
+                       KQ_BAI1B
+                               DCD              0
+    8 00000018 00000000 
+                       MAX_BAI1C
+                               DCD              0
+    9 0000001C 00000000 
+                       MIN_BAI1C
+                               DCD              0
+   10 00000020 00000000 
+                       TBC_BAI1D
+                               DCD              0
+   11 00000024 00000000 
+                       SUM_BAI1E
+                               DCD              0
+   12 00000028 00000000 
+                       SO_PHAN_TU_DUONG_BAI1F
+                               DCD              0
+   13 0000002C 00000000 
+                       SO_PHAN_TU_AM_BAI1F
+                               DCD              0
+   14 00000030 00000000 
+                       max_in_main
+                               DCD              0
+   15 00000034 00000000 
+                       min_in_main
+                               DCD              0
+   16 00000038 00000000 
+                       max_in_sub
+                               DCD              0
+   17 0000003C 00000000 
+                       min_in_sub
+                               DCD              0
+   18 00000040 00000000 
+                       SO_PHAN_TU_LE_BAI1H
+                               DCD              0
+   19 00000044 00000000 
+                       SO_PHAN_TU_CHAN_BAI1H
+                               DCD              0
+   20 00000048 00000000 
+                       SUM_BAI1I
+                               DCD              0
+   21 0000004C 00000000 
+                       KQ_BAI1J
+                               DCD              0
+   22 00000050 00000001 
+              00000002 
+              00000003 
+              00000004 
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+              00000005 AA      DCD              1,2,3,4,5
+   23 00000064 00000005 
+              00000006 
+              00000007 
+              00000008 
+              00000009         DCD              5,6,7,8,9
+   24 00000078 00000006 
+              00000002 
+              00000004 
+              00000003 
+              00000005 A       DCD              6,2,4,3,5
+   25 0000008C 00000002 
+                       M       DCD              2
+   26 00000090 00000005 
+                       N       DCD              5
+   27 00000094 00000001 
+              00000002 
+              00000003 A1      DCD              1,2,3
+   28 000000A0 00000002 
+              00000003 
+              00000004         DCD              2,3,4
+   29 000000AC 00000004 
+              00000005 
+              00000006         DCD              4,5,6
+   30 000000B8                 AREA             MYCODE,CODE,READONLY
+   31 00000000                 ENTRY
+   32 00000000         ;Bai1a
+   33 00000000         Bai1a   PROC
+   34 00000000 F04F 0000       MOV              R0,#0
+   35 00000004 F85F 1004       LDR              R1,N
+   36 00000008 4BD0            LDR              R3,=A
+   37 0000000A         Loop1a
+   38 0000000A F853 2B04       LDR              R2,[R3],#4
+   39 0000000E 4410            ADD              R0,R2
+   40 00000010 F1A1 0101       SUB              R1,#1
+   41 00000014 2900            CMP              R1,#0
+   42 00000016 DCF8            BGT              Loop1a
+   43 00000018 4CCD            LDR              R4,=SUM_BAI1A
+   44 0000001A 6020            STR              R0,[R4]
+   45 0000001C 4770            BX               LR
+   46 0000001E                 ENDP
+   47 0000001E         ;Bai1b
+   48 0000001E         Bai1b   PROC
+   49 0000001E F85F 0004       LDR              R0,N_BAI1B
+   50 00000022 F85F 1004       LDR              R1,M_BAI1B
+   51 00000026 F04F 0200       MOV              R2,#0
+   52 0000002A         Loop1b
+   53 0000002A 4288            CMP              R0,R1
+   54 0000002C DC01            BGT              Great
+   55 0000002E DB03            BLT              Less
+   56 00000030 D005            BEQ              Final
+   57 00000032         Great
+   58 00000032 EBA0 0001       SUB              R0,R1
+   59 00000036 E7F8            B                Loop1b
+   60 00000038         Less
+   61 00000038 EBA1 0100       SUB              R1,R0
+   62 0000003C E7F5            B                Loop1b
+   63 0000003E         Final
+   64 0000003E 4BC5            LDR              R3,=KQ_BAI1B
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+   65 00000040 6018            STR              R0,[R3]
+   66 00000042 4770            BX               LR
+   67 00000044                 ENDP
+   68 00000044         ;Bai1c
+   69 00000044         Bai1c   PROC
+   70 00000044 F85F 0004       LDR              R0,A        ;Gia tri nho nhat 
+   71 00000048 F85F 1004       LDR              R1,A        ;Gia tri lon nhat
+   72 0000004C 4ABF            LDR              R2,=A
+   73 0000004E F04F 0405       MOV              R4,#5
+   74 00000052         TimMin
+   75 00000052 F852 3B04       LDR              R3,[R2],#4
+   76 00000056 F1A4 0401       SUB              R4,#1
+   77 0000005A 4283            CMP              R3,R0
+   78 0000005C DD05            BLE              GanMin
+   79 0000005E 2C00            CMP              R4,#0
+   80 00000060 DCF7            BGT              TimMin
+   81 00000062 F04F 0405       MOV              R4,#5
+   82 00000066 4AB9            LDR              R2,=A
+   83 00000068 E001            B                TimMax
+   84 0000006A         GanMin
+   85 0000006A 4618            MOV              R0,R3
+   86 0000006C E7F1            B                TimMin
+   87 0000006E         TimMax
+   88 0000006E F852 3B04       LDR              R3,[R2],#4
+   89 00000072 F1A4 0401       SUB              R4,#1
+   90 00000076 428B            CMP              R3,R1
+   91 00000078 DA02            BGE              GanMax
+   92 0000007A 2C00            CMP              R4,#0
+   93 0000007C DCF7            BGT              TimMax
+   94 0000007E E001            B                Xong
+   95 00000080         GanMax
+   96 00000080 4619            MOV              R1,R3
+   97 00000082 E7F4            B                TimMax
+   98 00000084         Xong
+   99 00000084 4DB4            LDR              R5,=MAX_BAI1C
+  100 00000086 6029            STR              R1,[R5]
+  101 00000088 4DB4            LDR              R5,=MIN_BAI1C
+  102 0000008A 6028            STR              R0,[R5]
+  103 0000008C 4770            BX               LR
+  104 0000008E                 ENDP
+  105 0000008E         ;Bai1d
+  106 0000008E         Bai1d   PROC
+  107 0000008E F04F 0000       MOV              R0,#0
+  108 00000092 49AE            LDR              R1,=A
+  109 00000094 F85F 2004       LDR              R2,N
+  110 00000098         LoopBai1d
+  111 00000098 2A00            CMP              R2,#0
+  112 0000009A DD05            BLE              TinhTBC
+  113 0000009C F851 3B04       LDR              R3,[R1],#4
+  114 000000A0 4418            ADD              R0,R3
+  115 000000A2 F1A2 0201       SUB              R2,#1
+  116 000000A6 E7F7            B                LoopBai1d
+  117 000000A8         TinhTBC
+  118 000000A8 F85F 2004       LDR              R2,N
+  119 000000AC FB90 F0F2       SDIV             R0,R2
+  120 000000B0 4CAB            LDR              R4,=TBC_BAI1D
+  121 000000B2 6020            STR              R0,[R4]
+  122 000000B4 4770            BX               LR
+  123 000000B6                 ENDP
+
+
+
+ARM Macro Assembler    Page 4 
+
+
+  124 000000B6         ;Bai1e
+  125 000000B6         Bai1e   PROC
+  126 000000B6 F04F 0000       MOV              R0,#0
+  127 000000BA 49AA            LDR              R1,=AA
+  128 000000BC F85F 2004       LDR              R2,M
+  129 000000C0         DuyetHang
+  130 000000C0 2A00            CMP              R2,#0
+  131 000000C2 DD0C            BLE              Done
+  132 000000C4 F85F 3004       LDR              R3,N
+  133 000000C8         DuyetCot
+  134 000000C8 2B00            CMP              R3,#0
+  135 000000CA DD05            BLE              DuyetHangTiep
+  136 000000CC F851 4B04       LDR              R4,[R1],#4
+  137 000000D0 4420            ADD              R0,R4
+  138 000000D2 F1A3 0301       SUB              R3,#1
+  139 000000D6 E7F7            B                DuyetCot
+  140 000000D8         DuyetHangTiep
+  141 000000D8 F1A2 0201       SUB              R2,#1
+  142 000000DC E7F0            B                DuyetHang
+  143 000000DE         Done
+  144 000000DE 4DA2            LDR              R5,=SUM_BAI1E
+  145 000000E0 6028            STR              R0,[R5]
+  146 000000E2 4770            BX               LR
+  147 000000E4                 ENDP
+  148 000000E4         ;Bai1f
+  149 000000E4         Bai1f   PROC
+  150 000000E4 F04F 0000       MOV              R0,#0
+  151 000000E8 F04F 0100       MOV              R1,#0
+  152 000000EC 4A9D            LDR              R2,=AA
+  153 000000EE F85F 3004       LDR              R3,M
+  154 000000F2         DuyetHang1f
+  155 000000F2 2B00            CMP              R3,#0
+  156 000000F4 DD18            BLE              Done1f
+  157 000000F6 F85F 4004       LDR              R4,N
+  158 000000FA         DuyetCot1f
+  159 000000FA 2C00            CMP              R4,#0
+  160 000000FC DD07            BLE              DuyetHang1fTiep
+  161 000000FE F852 5B04       LDR              R5,[R2],#4
+  162 00000102 2D00            CMP              R5,#0
+  163 00000104 DB06            BLT              SoAm1f
+  164 00000106 DC0A            BGT              SoDuong1f
+  165 00000108 F1A4 0401       SUB              R4,#1
+  166 0000010C E7F5            B                DuyetCot1f
+  167 0000010E         DuyetHang1fTiep
+  168 0000010E F1A3 0301       SUB              R3,#1
+  169 00000112 E7EE            B                DuyetHang1f
+  170 00000114         SoAm1f
+  171 00000114 F100 0001       ADD              R0,#1
+  172 00000118 F1A4 0401       SUB              R4,#1
+  173 0000011C E7ED            B                DuyetCot1f
+  174 0000011E         SoDuong1f
+  175 0000011E F101 0101       ADD              R1,#1
+  176 00000122 F1A4 0401       SUB              R4,#1
+  177 00000126 E7E8            B                DuyetCot1f
+  178 00000128         Done1f
+  179 00000128 4E90            LDR              R6,=SO_PHAN_TU_DUONG_BAI1F
+  180 0000012A 6031            STR              R1,[R6]
+  181 0000012C 4E90            LDR              R6,=SO_PHAN_TU_AM_BAI1F
+  182 0000012E 6030            STR              R0,[R6]
+
+
+
+ARM Macro Assembler    Page 5 
+
+
+  183 00000130 4770            BX               LR
+  184 00000132                 ENDP
+  185 00000132         ;Bai1g
+  186 00000132         Bai1g   PROC
+  187 00000132 00000003 
+                       N1      EQU              3
+  188 00000132 F04F 0203       MOV              R2,#N1
+  189 00000136 4B85            LDR              R3,=A       ;Luu dia chi cua ma
+                                                             tran 
+  190 00000138 6818            LDR              R0,[R3]     ;Luu gia tri nho nh
+                                                            at
+  191 0000013A 6819            LDR              R1,[R3]     ;Luu gia tri lon nh
+                                                            at
+  192 0000013C F04F 0400       MOV              R4,#0       ;Lap qua cac hang
+  193 00000140 F04F 0500       MOV              R5,#0       ;Lap qua cac cot
+  194 00000144         ;DCC
+  195 00000144         DuyetHangDCC
+  196 00000144 4294            CMP              R4,R2
+  197 00000146 DA1E            BGE              HoanThanhDCC
+  198 00000148 F04F 0500       MOV              R5,#0
+  199 0000014C         DuyetCotDCC
+  200 0000014C 4295            CMP              R5,R2
+  201 0000014E DA17            BGE              DuyetHangAdd
+  202 00000150 F853 7B04       LDR              R7,[R3],#4
+  203 00000154 42AC            CMP              R4,R5
+  204 00000156 D002            BEQ              NamTrenDCC
+  205 00000158 F105 0501       ADD              R5,#1
+  206 0000015C E7F6            B                DuyetCotDCC
+  207 0000015E         NamTrenDCC
+  208 0000015E 42B8            CMP              R0,R7
+  209 00000160 DC04            BGT              LuuGTNNDCC
+  210 00000162 42B9            CMP              R1,R7
+  211 00000164 DB08            BLT              LuuGTLNDCC
+  212 00000166 F105 0501       ADD              R5,#1
+  213 0000016A E7EF            B                DuyetCotDCC
+  214 0000016C         LuuGTNNDCC
+  215 0000016C 4638            MOV              R0,R7
+  216 0000016E 42B9            CMP              R1,R7
+  217 00000170 DB02            BLT              LuuGTLNDCC
+  218 00000172 F105 0501       ADD              R5,#1
+  219 00000176 E7E9            B                DuyetCotDCC
+  220 00000178         LuuGTLNDCC
+  221 00000178 4639            MOV              R1,R7
+  222 0000017A F105 0501       ADD              R5,#1
+  223 0000017E E7E5            B                DuyetCotDCC
+  224 00000180         DuyetHangAdd
+  225 00000180 F104 0401       ADD              R4,#1
+  226 00000184 E7DE            B                DuyetHangDCC
+  227 00000186         HoanThanhDCC
+  228 00000186 F8DF 81EC       LDR              R8,=max_in_main
+  229 0000018A F8C8 0000       STR              R0,[R8]
+  230 0000018E F8DF 81E8       LDR              R8,=min_in_main
+  231 00000192 F8C8 1000       STR              R1,[R8]
+  232 00000196         ;DCP
+  233 00000196         DCP
+  234 00000196 4B6D            LDR              R3, =A
+  235 00000198 F04F 0A03       MOV              R10, #N1
+  236 0000019C F1AA 0A01       SUB              R10,#1
+  237 000001A0 F04F 0B04       MOV              R11, #4
+
+
+
+ARM Macro Assembler    Page 6 
+
+
+  238 000001A4 FB0A FA0B       MUL              R10, R10, R11
+  239 000001A8 4453            ADD              R3, R3, R10
+  240 000001AA F04F 0400       MOV              R4,#0
+  241 000001AE 6818            LDR              R0,[R3]     ;Luu gia tri nho nh
+                                                            at
+  242 000001B0 6819            LDR              R1,[R3]     ;Luu gia tri lon nh
+                                                            at
+  243 000001B2 4B66            LDR              R3,=A       ;Luu dia chi cua ma
+                                                             tran 
+  244 000001B4 F04F 0903       MOV              R9,#N1
+  245 000001B8         DuyetHangDCP
+  246 000001B8 4294            CMP              R4,R2
+  247 000001BA DA20            BGE              HoanThanhDCP
+  248 000001BC F04F 0500       MOV              R5,#0
+  249 000001C0 F1A9 0901       SUB              R9,#1
+  250 000001C4         DuyetCotDCP
+  251 000001C4 4295            CMP              R5,R2
+  252 000001C6 DA17            BGE              DuyetHangAddDCP
+  253 000001C8 F853 7B04       LDR              R7,[R3],#4
+  254 000001CC 45A9            CMP              R9,R5
+  255 000001CE D002            BEQ              NamTrenDCP
+  256 000001D0 F105 0501       ADD              R5,#1
+  257 000001D4 E7F6            B                DuyetCotDCP
+  258 000001D6         NamTrenDCP
+  259 000001D6 42B8            CMP              R0,R7
+  260 000001D8 DC04            BGT              LuuGTNNDCP
+  261 000001DA 42B9            CMP              R1,R7
+  262 000001DC DB08            BLT              LuuGTLNDCP
+  263 000001DE F105 0501       ADD              R5,#1
+  264 000001E2 E7EF            B                DuyetCotDCP
+  265 000001E4         LuuGTNNDCP
+  266 000001E4 4638            MOV              R0,R7
+  267 000001E6 42B9            CMP              R1,R7
+  268 000001E8 DB02            BLT              LuuGTLNDCP
+  269 000001EA F105 0501       ADD              R5,#1
+  270 000001EE E7E9            B                DuyetCotDCP
+  271 000001F0         LuuGTLNDCP
+  272 000001F0 4639            MOV              R1,R7
+  273 000001F2 F105 0501       ADD              R5,#1
+  274 000001F6 E7E5            B                DuyetCotDCP
+  275 000001F8         DuyetHangAddDCP
+  276 000001F8 F104 0401       ADD              R4,#1
+  277 000001FC E7DC            B                DuyetHangDCP
+  278 000001FE         HoanThanhDCP
+  279 000001FE F8DF 817C       LDR              R8,=max_in_sub
+  280 00000202 F8C8 0000       STR              R0,[R8]
+  281 00000206 F8DF 8178       LDR              R8,=min_in_sub
+  282 0000020A F8C8 1000       STR              R1,[R8]
+  283 0000020E 4770            BX               LR
+  284 00000210                 ENDP
+  285 00000210         ;Bai1h
+  286 00000210         Bai1h   PROC
+  287 00000210 F04F 0000       MOV              R0,#0
+  288 00000214 F04F 0100       MOV              R1,#0
+  289 00000218 4A52            LDR              R2,=AA
+  290 0000021A F85F 3004       LDR              R3,M
+  291 0000021E         DuyetHang1h
+  292 0000021E 2B00            CMP              R3,#0
+  293 00000220 DD30            BLE              Done1h
+
+
+
+ARM Macro Assembler    Page 7 
+
+
+  294 00000222 F85F 4004       LDR              R4,N
+  295 00000226         DuyetCot1h
+  296 00000226 2C00            CMP              R4,#0
+  297 00000228 DD08            BLE              DuyetHang1hTiep
+  298 0000022A F852 5B04       LDR              R5,[R2],#4
+  299 0000022E 462E            MOV              R6,R5
+  300 00000230 2E00            CMP              R6,#0
+  301 00000232 DB06            BLT              SoAm1h
+  302 00000234 DC16            BGT              SoDuong1h
+  303 00000236 F1A4 0401       SUB              R4,#1
+  304 0000023A E7F4            B                DuyetCot1h
+  305 0000023C         DuyetHang1hTiep
+  306 0000023C F1A3 0301       SUB              R3,#1
+  307 00000240 E7ED            B                DuyetHang1h
+  308 00000242         SoAm1h
+  309 00000242 F116 0F02       CMP              R6,#-2
+  310 00000246 DB05            BLT              CheckSoAm
+  311 00000248 DC07            BGT              SoAmLe
+  312 0000024A F100 0001       ADD              R0,#1
+  313 0000024E F1A4 0401       SUB              R4,#1
+  314 00000252 E7E8            B                DuyetCot1h
+  315 00000254         CheckSoAm
+  316 00000254 F106 0602       ADD              R6,#2
+  317 00000258 E7F3            B                SoAm1h
+  318 0000025A         SoAmLe
+  319 0000025A F101 0101       ADD              R1,#1
+  320 0000025E F1A4 0401       SUB              R4,#1
+  321 00000262 E7E0            B                DuyetCot1h
+  322 00000264         SoDuong1h
+  323 00000264 2E02            CMP              R6,#2
+  324 00000266 DC05            BGT              CheckSoDuong
+  325 00000268 DB07            BLT              SoDuongLe
+  326 0000026A F100 0001       ADD              R0,#1
+  327 0000026E F1A4 0401       SUB              R4,#1
+  328 00000272 E7D8            B                DuyetCot1h
+  329 00000274         CheckSoDuong
+  330 00000274 F1A6 0602       SUB              R6,#2
+  331 00000278 E7F4            B                SoDuong1h
+  332 0000027A         SoDuongLe
+  333 0000027A F101 0101       ADD              R1,#1
+  334 0000027E F1A4 0401       SUB              R4,#1
+  335 00000282 E7D0            B                DuyetCot1h
+  336 00000284         Done1h
+  337 00000284 4E3F            LDR              R6,=SO_PHAN_TU_LE_BAI1H
+  338 00000286 6031            STR              R1,[R6]
+  339 00000288 4E3F            LDR              R6,=SO_PHAN_TU_CHAN_BAI1H
+  340 0000028A 6030            STR              R0,[R6]
+  341 0000028C 4770            BX               LR
+  342 0000028E                 ENDP
+  343 0000028E         ;Bai1i
+  344 0000028E         Bai1i   PROC
+  345 0000028E F04F 0000       MOV              R0,#0
+  346 00000292 4934            LDR              R1,=AA
+  347 00000294 F85F 2004       LDR              R2,M
+  348 00000298         DuyetHang1i
+  349 00000298 2A00            CMP              R2,#0
+  350 0000029A DD16            BLE              Done1i
+  351 0000029C F85F 3004       LDR              R3,N
+  352 000002A0         DuyetCot1i
+
+
+
+ARM Macro Assembler    Page 8 
+
+
+  353 000002A0 2B00            CMP              R3,#0
+  354 000002A2 DD0F            BLE              DuyetHangTiep1i
+  355 000002A4 F851 4B04       LDR              R4,[R1],#4
+  356 000002A8 2C05            CMP              R4,#5
+  357 000002AA DC03            BGT              CheckChiaHetCho5
+  358 000002AC D008            BEQ              ChiaHetCho5
+  359 000002AE F1A3 0301       SUB              R3,#1
+  360 000002B2 E7F5            B                DuyetCot1i
+  361 000002B4         CheckChiaHetCho5
+  362 000002B4 2C05            CMP              R4,#5
+  363 000002B6 D003            BEQ              ChiaHetCho5
+  364 000002B8 DBF2            BLT              DuyetCot1i
+  365 000002BA F1A4 0405       SUB              R4,#5
+  366 000002BE E7F9            B                CheckChiaHetCho5
+  367 000002C0         ChiaHetCho5
+  368 000002C0 4428            ADD              R0,R5
+  369 000002C2 E7ED            B                DuyetCot1i
+  370 000002C4         DuyetHangTiep1i
+  371 000002C4 F1A2 0201       SUB              R2,#1
+  372 000002C8 E7E6            B                DuyetHang1i
+  373 000002CA         Done1i
+  374 000002CA 4D27            LDR              R5,=SUM_BAI1E
+  375 000002CC 6028            STR              R0,[R5]
+  376 000002CE 4770            BX               LR
+  377 000002D0                 ENDP
+  378 000002D0         ;Bai1j
+  379 000002D0         Bai1j   PROC
+  380 000002D0 F04F 0000       MOV              R0,#0       ;UCLN
+  381 000002D4 491D            LDR              R1,=A
+  382 000002D6 F04F 0200       MOV              R2,#0       ;UCHT
+  383 000002DA F85F 3004       LDR              R3,N
+  384 000002DE F1A3 0301       SUB              R3,#1
+  385 000002E2         Loop1j
+  386 000002E2 2B00            CMP              R3,#0
+  387 000002E4 DD1A            BLE              Done1j
+  388 000002E6 F851 4B04       LDR              R4,[R1],#4
+  389 000002EA F851 5B04       LDR              R5,[R1],#4
+  390 000002EE E004            B                KiemTraUCLN
+  391 000002F0         Loop1jlan2
+  392 000002F0 2B00            CMP              R3,#0
+  393 000002F2 DD13            BLE              Done1j
+  394 000002F4 4604            MOV              R4,R0
+  395 000002F6 F851 5B04       LDR              R5,[R1],#4
+  396 000002FA         KiemTraUCLN
+  397 000002FA 42AC            CMP              R4,R5
+  398 000002FC DC01            BGT              Great1j
+  399 000002FE DB03            BLT              Less1j
+  400 00000300 D005            BEQ              Final1j
+  401 00000302         Great1j
+  402 00000302 EBA4 0405       SUB              R4,R5
+  403 00000306 E7F8            B                KiemTraUCLN
+  404 00000308         Less1j
+  405 00000308 EBA5 0504       SUB              R5,R4
+  406 0000030C E7F5            B                KiemTraUCLN
+  407 0000030E         Final1j
+  408 0000030E F1A3 0301       SUB              R3,#1
+  409 00000312 4284            CMP              R4,R0
+  410 00000314 DC00            BGT              GanLaiUCLNChuoi
+  411 00000316 E7EB            B                Loop1jlan2
+
+
+
+ARM Macro Assembler    Page 9 
+
+
+  412 00000318         GanLaiUCLNChuoi
+  413 00000318 4620            MOV              R0,R4
+  414 0000031A E7E9            B                Loop1jlan2
+  415 0000031C         Done1j
+  416 0000031C 4F1B            LDR              R7,=KQ_BAI1J
+  417 0000031E 6038            STR              R0,[R7]
+  418 00000320 4770            BX               LR
+  419 00000322                 ENDP
+  420 00000322         MAIN    PROC
+  421 00000322 F7FF FFFE       BL               Bai1a
+  422 00000326 F7FF FFFE       BL               Bai1b
+  423 0000032A F7FF FFFE       BL               Bai1c
+  424 0000032E F7FF FFFE       BL               Bai1d
+  425 00000332 F7FF FFFE       BL               Bai1e
+  426 00000336 F7FF FFFE       BL               Bai1f
+  427 0000033A F7FF FFFE       BL               Bai1g
+  428 0000033E F7FF FFFE       BL               Bai1h
+  429 00000342 F7FF FFFE       BL               Bai1i
+  430 00000346 F7FF FFFE       BL               Bai1j
+  431 0000034A         STOP
+  432 0000034A E7FE            B                STOP
+  433 0000034C                 END
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai1a.
+d -o.\bai1a.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Kei
+l_v5\ARM\Inc\ST\STM32F10x --list=.\bai1a.lst Bai1a.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+A 00000078
+
+Symbol: A
+   Definitions
+      At line 24 in file Bai1a.s
+   Uses
+      At line 36 in file Bai1a.s
+      At line 70 in file Bai1a.s
+      At line 71 in file Bai1a.s
+      At line 72 in file Bai1a.s
+      At line 82 in file Bai1a.s
+      At line 108 in file Bai1a.s
+      At line 189 in file Bai1a.s
+      At line 234 in file Bai1a.s
+      At line 243 in file Bai1a.s
+      At line 381 in file Bai1a.s
+
+A1 00000094
+
+Symbol: A1
+   Definitions
+      At line 27 in file Bai1a.s
+   Uses
+      None
+Comment: A1 unused
+AA 00000050
+
+Symbol: AA
+   Definitions
+      At line 22 in file Bai1a.s
+   Uses
+      At line 127 in file Bai1a.s
+      At line 152 in file Bai1a.s
+      At line 289 in file Bai1a.s
+      At line 346 in file Bai1a.s
+
+KQ_BAI1B 00000014
+
+Symbol: KQ_BAI1B
+   Definitions
+      At line 7 in file Bai1a.s
+   Uses
+      At line 64 in file Bai1a.s
+Comment: KQ_BAI1B used once
+KQ_BAI1J 0000004C
+
+Symbol: KQ_BAI1J
+   Definitions
+      At line 21 in file Bai1a.s
+   Uses
+      At line 416 in file Bai1a.s
+Comment: KQ_BAI1J used once
+M 0000008C
+
+Symbol: M
+   Definitions
+      At line 25 in file Bai1a.s
+   Uses
+      At line 128 in file Bai1a.s
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+      At line 153 in file Bai1a.s
+      At line 290 in file Bai1a.s
+      At line 347 in file Bai1a.s
+
+MAX_BAI1C 00000018
+
+Symbol: MAX_BAI1C
+   Definitions
+      At line 8 in file Bai1a.s
+   Uses
+      At line 99 in file Bai1a.s
+Comment: MAX_BAI1C used once
+MIN_BAI1C 0000001C
+
+Symbol: MIN_BAI1C
+   Definitions
+      At line 9 in file Bai1a.s
+   Uses
+      At line 101 in file Bai1a.s
+Comment: MIN_BAI1C used once
+M_BAI1B 00000010
+
+Symbol: M_BAI1B
+   Definitions
+      At line 6 in file Bai1a.s
+   Uses
+      At line 50 in file Bai1a.s
+Comment: M_BAI1B used once
+N 00000090
+
+Symbol: N
+   Definitions
+      At line 26 in file Bai1a.s
+   Uses
+      At line 35 in file Bai1a.s
+      At line 109 in file Bai1a.s
+      At line 118 in file Bai1a.s
+      At line 132 in file Bai1a.s
+      At line 157 in file Bai1a.s
+      At line 294 in file Bai1a.s
+      At line 351 in file Bai1a.s
+      At line 383 in file Bai1a.s
+
+N_BAI1B 0000000C
+
+Symbol: N_BAI1B
+   Definitions
+      At line 5 in file Bai1a.s
+   Uses
+      At line 49 in file Bai1a.s
+Comment: N_BAI1B used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file Bai1a.s
+   Uses
+      None
+Comment: RESET unused
+
+
+
+ARM Macro Assembler    Page 3 Alphabetic symbol ordering
+Relocatable symbols
+
+SO_PHAN_TU_AM_BAI1F 0000002C
+
+Symbol: SO_PHAN_TU_AM_BAI1F
+   Definitions
+      At line 13 in file Bai1a.s
+   Uses
+      At line 181 in file Bai1a.s
+Comment: SO_PHAN_TU_AM_BAI1F used once
+SO_PHAN_TU_CHAN_BAI1H 00000044
+
+Symbol: SO_PHAN_TU_CHAN_BAI1H
+   Definitions
+      At line 19 in file Bai1a.s
+   Uses
+      At line 339 in file Bai1a.s
+Comment: SO_PHAN_TU_CHAN_BAI1H used once
+SO_PHAN_TU_DUONG_BAI1F 00000028
+
+Symbol: SO_PHAN_TU_DUONG_BAI1F
+   Definitions
+      At line 12 in file Bai1a.s
+   Uses
+      At line 179 in file Bai1a.s
+Comment: SO_PHAN_TU_DUONG_BAI1F used once
+SO_PHAN_TU_LE_BAI1H 00000040
+
+Symbol: SO_PHAN_TU_LE_BAI1H
+   Definitions
+      At line 18 in file Bai1a.s
+   Uses
+      At line 337 in file Bai1a.s
+Comment: SO_PHAN_TU_LE_BAI1H used once
+SUM_BAI1A 00000008
+
+Symbol: SUM_BAI1A
+   Definitions
+      At line 4 in file Bai1a.s
+   Uses
+      At line 43 in file Bai1a.s
+Comment: SUM_BAI1A used once
+SUM_BAI1E 00000024
+
+Symbol: SUM_BAI1E
+   Definitions
+      At line 11 in file Bai1a.s
+   Uses
+      At line 144 in file Bai1a.s
+      At line 374 in file Bai1a.s
+
+SUM_BAI1I 00000048
+
+Symbol: SUM_BAI1I
+   Definitions
+      At line 20 in file Bai1a.s
+   Uses
+      None
+Comment: SUM_BAI1I unused
+TBC_BAI1D 00000020
+
+
+
+
+ARM Macro Assembler    Page 4 Alphabetic symbol ordering
+Relocatable symbols
+
+Symbol: TBC_BAI1D
+   Definitions
+      At line 10 in file Bai1a.s
+   Uses
+      At line 120 in file Bai1a.s
+Comment: TBC_BAI1D used once
+max_in_main 00000030
+
+Symbol: max_in_main
+   Definitions
+      At line 14 in file Bai1a.s
+   Uses
+      At line 228 in file Bai1a.s
+Comment: max_in_main used once
+max_in_sub 00000038
+
+Symbol: max_in_sub
+   Definitions
+      At line 16 in file Bai1a.s
+   Uses
+      At line 279 in file Bai1a.s
+Comment: max_in_sub used once
+min_in_main 00000034
+
+Symbol: min_in_main
+   Definitions
+      At line 15 in file Bai1a.s
+   Uses
+      At line 230 in file Bai1a.s
+Comment: min_in_main used once
+min_in_sub 0000003C
+
+Symbol: min_in_sub
+   Definitions
+      At line 17 in file Bai1a.s
+   Uses
+      At line 281 in file Bai1a.s
+Comment: min_in_sub used once
+24 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Bai1a 00000000
+
+Symbol: Bai1a
+   Definitions
+      At line 33 in file Bai1a.s
+   Uses
+      At line 421 in file Bai1a.s
+Comment: Bai1a used once
+Bai1b 0000001E
+
+Symbol: Bai1b
+   Definitions
+      At line 48 in file Bai1a.s
+   Uses
+      At line 422 in file Bai1a.s
+Comment: Bai1b used once
+Bai1c 00000044
+
+Symbol: Bai1c
+   Definitions
+      At line 69 in file Bai1a.s
+   Uses
+      At line 423 in file Bai1a.s
+Comment: Bai1c used once
+Bai1d 0000008E
+
+Symbol: Bai1d
+   Definitions
+      At line 106 in file Bai1a.s
+   Uses
+      At line 424 in file Bai1a.s
+Comment: Bai1d used once
+Bai1e 000000B6
+
+Symbol: Bai1e
+   Definitions
+      At line 125 in file Bai1a.s
+   Uses
+      At line 425 in file Bai1a.s
+Comment: Bai1e used once
+Bai1f 000000E4
+
+Symbol: Bai1f
+   Definitions
+      At line 149 in file Bai1a.s
+   Uses
+      At line 426 in file Bai1a.s
+Comment: Bai1f used once
+Bai1g 00000132
+
+Symbol: Bai1g
+   Definitions
+      At line 186 in file Bai1a.s
+   Uses
+      At line 427 in file Bai1a.s
+Comment: Bai1g used once
+Bai1h 00000210
+
+Symbol: Bai1h
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+   Definitions
+      At line 286 in file Bai1a.s
+   Uses
+      At line 428 in file Bai1a.s
+Comment: Bai1h used once
+Bai1i 0000028E
+
+Symbol: Bai1i
+   Definitions
+      At line 344 in file Bai1a.s
+   Uses
+      At line 429 in file Bai1a.s
+Comment: Bai1i used once
+Bai1j 000002D0
+
+Symbol: Bai1j
+   Definitions
+      At line 379 in file Bai1a.s
+   Uses
+      At line 430 in file Bai1a.s
+Comment: Bai1j used once
+CheckChiaHetCho5 000002B4
+
+Symbol: CheckChiaHetCho5
+   Definitions
+      At line 361 in file Bai1a.s
+   Uses
+      At line 357 in file Bai1a.s
+      At line 366 in file Bai1a.s
+
+CheckSoAm 00000254
+
+Symbol: CheckSoAm
+   Definitions
+      At line 315 in file Bai1a.s
+   Uses
+      At line 310 in file Bai1a.s
+Comment: CheckSoAm used once
+CheckSoDuong 00000274
+
+Symbol: CheckSoDuong
+   Definitions
+      At line 329 in file Bai1a.s
+   Uses
+      At line 324 in file Bai1a.s
+Comment: CheckSoDuong used once
+ChiaHetCho5 000002C0
+
+Symbol: ChiaHetCho5
+   Definitions
+      At line 367 in file Bai1a.s
+   Uses
+      At line 358 in file Bai1a.s
+      At line 363 in file Bai1a.s
+
+DCP 00000196
+
+Symbol: DCP
+   Definitions
+
+
+
+ARM Macro Assembler    Page 3 Alphabetic symbol ordering
+Relocatable symbols
+
+      At line 233 in file Bai1a.s
+   Uses
+      None
+Comment: DCP unused
+Done 000000DE
+
+Symbol: Done
+   Definitions
+      At line 143 in file Bai1a.s
+   Uses
+      At line 131 in file Bai1a.s
+Comment: Done used once
+Done1f 00000128
+
+Symbol: Done1f
+   Definitions
+      At line 178 in file Bai1a.s
+   Uses
+      At line 156 in file Bai1a.s
+Comment: Done1f used once
+Done1h 00000284
+
+Symbol: Done1h
+   Definitions
+      At line 336 in file Bai1a.s
+   Uses
+      At line 293 in file Bai1a.s
+Comment: Done1h used once
+Done1i 000002CA
+
+Symbol: Done1i
+   Definitions
+      At line 373 in file Bai1a.s
+   Uses
+      At line 350 in file Bai1a.s
+Comment: Done1i used once
+Done1j 0000031C
+
+Symbol: Done1j
+   Definitions
+      At line 415 in file Bai1a.s
+   Uses
+      At line 387 in file Bai1a.s
+      At line 393 in file Bai1a.s
+
+DuyetCot 000000C8
+
+Symbol: DuyetCot
+   Definitions
+      At line 133 in file Bai1a.s
+   Uses
+      At line 139 in file Bai1a.s
+Comment: DuyetCot used once
+DuyetCot1f 000000FA
+
+Symbol: DuyetCot1f
+   Definitions
+      At line 158 in file Bai1a.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 4 Alphabetic symbol ordering
+Relocatable symbols
+
+      At line 166 in file Bai1a.s
+      At line 173 in file Bai1a.s
+      At line 177 in file Bai1a.s
+
+DuyetCot1h 00000226
+
+Symbol: DuyetCot1h
+   Definitions
+      At line 295 in file Bai1a.s
+   Uses
+      At line 304 in file Bai1a.s
+      At line 314 in file Bai1a.s
+      At line 321 in file Bai1a.s
+      At line 328 in file Bai1a.s
+      At line 335 in file Bai1a.s
+
+DuyetCot1i 000002A0
+
+Symbol: DuyetCot1i
+   Definitions
+      At line 352 in file Bai1a.s
+   Uses
+      At line 360 in file Bai1a.s
+      At line 364 in file Bai1a.s
+      At line 369 in file Bai1a.s
+
+DuyetCotDCC 0000014C
+
+Symbol: DuyetCotDCC
+   Definitions
+      At line 199 in file Bai1a.s
+   Uses
+      At line 206 in file Bai1a.s
+      At line 213 in file Bai1a.s
+      At line 219 in file Bai1a.s
+      At line 223 in file Bai1a.s
+
+DuyetCotDCP 000001C4
+
+Symbol: DuyetCotDCP
+   Definitions
+      At line 250 in file Bai1a.s
+   Uses
+      At line 257 in file Bai1a.s
+      At line 264 in file Bai1a.s
+      At line 270 in file Bai1a.s
+      At line 274 in file Bai1a.s
+
+DuyetHang 000000C0
+
+Symbol: DuyetHang
+   Definitions
+      At line 129 in file Bai1a.s
+   Uses
+      At line 142 in file Bai1a.s
+Comment: DuyetHang used once
+DuyetHang1f 000000F2
+
+Symbol: DuyetHang1f
+
+
+
+ARM Macro Assembler    Page 5 Alphabetic symbol ordering
+Relocatable symbols
+
+   Definitions
+      At line 154 in file Bai1a.s
+   Uses
+      At line 169 in file Bai1a.s
+Comment: DuyetHang1f used once
+DuyetHang1fTiep 0000010E
+
+Symbol: DuyetHang1fTiep
+   Definitions
+      At line 167 in file Bai1a.s
+   Uses
+      At line 160 in file Bai1a.s
+Comment: DuyetHang1fTiep used once
+DuyetHang1h 0000021E
+
+Symbol: DuyetHang1h
+   Definitions
+      At line 291 in file Bai1a.s
+   Uses
+      At line 307 in file Bai1a.s
+Comment: DuyetHang1h used once
+DuyetHang1hTiep 0000023C
+
+Symbol: DuyetHang1hTiep
+   Definitions
+      At line 305 in file Bai1a.s
+   Uses
+      At line 297 in file Bai1a.s
+Comment: DuyetHang1hTiep used once
+DuyetHang1i 00000298
+
+Symbol: DuyetHang1i
+   Definitions
+      At line 348 in file Bai1a.s
+   Uses
+      At line 372 in file Bai1a.s
+Comment: DuyetHang1i used once
+DuyetHangAdd 00000180
+
+Symbol: DuyetHangAdd
+   Definitions
+      At line 224 in file Bai1a.s
+   Uses
+      At line 201 in file Bai1a.s
+Comment: DuyetHangAdd used once
+DuyetHangAddDCP 000001F8
+
+Symbol: DuyetHangAddDCP
+   Definitions
+      At line 275 in file Bai1a.s
+   Uses
+      At line 252 in file Bai1a.s
+Comment: DuyetHangAddDCP used once
+DuyetHangDCC 00000144
+
+Symbol: DuyetHangDCC
+   Definitions
+      At line 195 in file Bai1a.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 6 Alphabetic symbol ordering
+Relocatable symbols
+
+      At line 226 in file Bai1a.s
+Comment: DuyetHangDCC used once
+DuyetHangDCP 000001B8
+
+Symbol: DuyetHangDCP
+   Definitions
+      At line 245 in file Bai1a.s
+   Uses
+      At line 277 in file Bai1a.s
+Comment: DuyetHangDCP used once
+DuyetHangTiep 000000D8
+
+Symbol: DuyetHangTiep
+   Definitions
+      At line 140 in file Bai1a.s
+   Uses
+      At line 135 in file Bai1a.s
+Comment: DuyetHangTiep used once
+DuyetHangTiep1i 000002C4
+
+Symbol: DuyetHangTiep1i
+   Definitions
+      At line 370 in file Bai1a.s
+   Uses
+      At line 354 in file Bai1a.s
+Comment: DuyetHangTiep1i used once
+Final 0000003E
+
+Symbol: Final
+   Definitions
+      At line 63 in file Bai1a.s
+   Uses
+      At line 56 in file Bai1a.s
+Comment: Final used once
+Final1j 0000030E
+
+Symbol: Final1j
+   Definitions
+      At line 407 in file Bai1a.s
+   Uses
+      At line 400 in file Bai1a.s
+Comment: Final1j used once
+GanLaiUCLNChuoi 00000318
+
+Symbol: GanLaiUCLNChuoi
+   Definitions
+      At line 412 in file Bai1a.s
+   Uses
+      At line 410 in file Bai1a.s
+Comment: GanLaiUCLNChuoi used once
+GanMax 00000080
+
+Symbol: GanMax
+   Definitions
+      At line 95 in file Bai1a.s
+   Uses
+      At line 91 in file Bai1a.s
+Comment: GanMax used once
+GanMin 0000006A
+
+
+
+ARM Macro Assembler    Page 7 Alphabetic symbol ordering
+Relocatable symbols
+
+
+Symbol: GanMin
+   Definitions
+      At line 84 in file Bai1a.s
+   Uses
+      At line 78 in file Bai1a.s
+Comment: GanMin used once
+Great 00000032
+
+Symbol: Great
+   Definitions
+      At line 57 in file Bai1a.s
+   Uses
+      At line 54 in file Bai1a.s
+Comment: Great used once
+Great1j 00000302
+
+Symbol: Great1j
+   Definitions
+      At line 401 in file Bai1a.s
+   Uses
+      At line 398 in file Bai1a.s
+Comment: Great1j used once
+HoanThanhDCC 00000186
+
+Symbol: HoanThanhDCC
+   Definitions
+      At line 227 in file Bai1a.s
+   Uses
+      At line 197 in file Bai1a.s
+Comment: HoanThanhDCC used once
+HoanThanhDCP 000001FE
+
+Symbol: HoanThanhDCP
+   Definitions
+      At line 278 in file Bai1a.s
+   Uses
+      At line 247 in file Bai1a.s
+Comment: HoanThanhDCP used once
+KiemTraUCLN 000002FA
+
+Symbol: KiemTraUCLN
+   Definitions
+      At line 396 in file Bai1a.s
+   Uses
+      At line 390 in file Bai1a.s
+      At line 403 in file Bai1a.s
+      At line 406 in file Bai1a.s
+
+Less 00000038
+
+Symbol: Less
+   Definitions
+      At line 60 in file Bai1a.s
+   Uses
+      At line 55 in file Bai1a.s
+Comment: Less used once
+Less1j 00000308
+
+
+
+
+ARM Macro Assembler    Page 8 Alphabetic symbol ordering
+Relocatable symbols
+
+Symbol: Less1j
+   Definitions
+      At line 404 in file Bai1a.s
+   Uses
+      At line 399 in file Bai1a.s
+Comment: Less1j used once
+Loop1a 0000000A
+
+Symbol: Loop1a
+   Definitions
+      At line 37 in file Bai1a.s
+   Uses
+      At line 42 in file Bai1a.s
+Comment: Loop1a used once
+Loop1b 0000002A
+
+Symbol: Loop1b
+   Definitions
+      At line 52 in file Bai1a.s
+   Uses
+      At line 59 in file Bai1a.s
+      At line 62 in file Bai1a.s
+
+Loop1j 000002E2
+
+Symbol: Loop1j
+   Definitions
+      At line 385 in file Bai1a.s
+   Uses
+      None
+Comment: Loop1j unused
+Loop1jlan2 000002F0
+
+Symbol: Loop1jlan2
+   Definitions
+      At line 391 in file Bai1a.s
+   Uses
+      At line 411 in file Bai1a.s
+      At line 414 in file Bai1a.s
+
+LoopBai1d 00000098
+
+Symbol: LoopBai1d
+   Definitions
+      At line 110 in file Bai1a.s
+   Uses
+      At line 116 in file Bai1a.s
+Comment: LoopBai1d used once
+LuuGTLNDCC 00000178
+
+Symbol: LuuGTLNDCC
+   Definitions
+      At line 220 in file Bai1a.s
+   Uses
+      At line 211 in file Bai1a.s
+      At line 217 in file Bai1a.s
+
+LuuGTLNDCP 000001F0
+
+
+
+
+ARM Macro Assembler    Page 9 Alphabetic symbol ordering
+Relocatable symbols
+
+Symbol: LuuGTLNDCP
+   Definitions
+      At line 271 in file Bai1a.s
+   Uses
+      At line 262 in file Bai1a.s
+      At line 268 in file Bai1a.s
+
+LuuGTNNDCC 0000016C
+
+Symbol: LuuGTNNDCC
+   Definitions
+      At line 214 in file Bai1a.s
+   Uses
+      At line 209 in file Bai1a.s
+Comment: LuuGTNNDCC used once
+LuuGTNNDCP 000001E4
+
+Symbol: LuuGTNNDCP
+   Definitions
+      At line 265 in file Bai1a.s
+   Uses
+      At line 260 in file Bai1a.s
+Comment: LuuGTNNDCP used once
+MAIN 00000322
+
+Symbol: MAIN
+   Definitions
+      At line 420 in file Bai1a.s
+   Uses
+      At line 3 in file Bai1a.s
+Comment: MAIN used once
+MYCODE 00000000
+
+Symbol: MYCODE
+   Definitions
+      At line 30 in file Bai1a.s
+   Uses
+      None
+Comment: MYCODE unused
+NamTrenDCC 0000015E
+
+Symbol: NamTrenDCC
+   Definitions
+      At line 207 in file Bai1a.s
+   Uses
+      At line 204 in file Bai1a.s
+Comment: NamTrenDCC used once
+NamTrenDCP 000001D6
+
+Symbol: NamTrenDCP
+   Definitions
+      At line 258 in file Bai1a.s
+   Uses
+      At line 255 in file Bai1a.s
+Comment: NamTrenDCP used once
+STOP 0000034A
+
+Symbol: STOP
+   Definitions
+
+
+
+ARM Macro Assembler    Page 10 Alphabetic symbol ordering
+Relocatable symbols
+
+      At line 431 in file Bai1a.s
+   Uses
+      At line 432 in file Bai1a.s
+Comment: STOP used once
+SoAm1f 00000114
+
+Symbol: SoAm1f
+   Definitions
+      At line 170 in file Bai1a.s
+   Uses
+      At line 163 in file Bai1a.s
+Comment: SoAm1f used once
+SoAm1h 00000242
+
+Symbol: SoAm1h
+   Definitions
+      At line 308 in file Bai1a.s
+   Uses
+      At line 301 in file Bai1a.s
+      At line 317 in file Bai1a.s
+
+SoAmLe 0000025A
+
+Symbol: SoAmLe
+   Definitions
+      At line 318 in file Bai1a.s
+   Uses
+      At line 311 in file Bai1a.s
+Comment: SoAmLe used once
+SoDuong1f 0000011E
+
+Symbol: SoDuong1f
+   Definitions
+      At line 174 in file Bai1a.s
+   Uses
+      At line 164 in file Bai1a.s
+Comment: SoDuong1f used once
+SoDuong1h 00000264
+
+Symbol: SoDuong1h
+   Definitions
+      At line 322 in file Bai1a.s
+   Uses
+      At line 302 in file Bai1a.s
+      At line 331 in file Bai1a.s
+
+SoDuongLe 0000027A
+
+Symbol: SoDuongLe
+   Definitions
+      At line 332 in file Bai1a.s
+   Uses
+      At line 325 in file Bai1a.s
+Comment: SoDuongLe used once
+TimMax 0000006E
+
+Symbol: TimMax
+   Definitions
+      At line 87 in file Bai1a.s
+
+
+
+ARM Macro Assembler    Page 11 Alphabetic symbol ordering
+Relocatable symbols
+
+   Uses
+      At line 83 in file Bai1a.s
+      At line 93 in file Bai1a.s
+      At line 97 in file Bai1a.s
+
+TimMin 00000052
+
+Symbol: TimMin
+   Definitions
+      At line 74 in file Bai1a.s
+   Uses
+      At line 80 in file Bai1a.s
+      At line 86 in file Bai1a.s
+
+TinhTBC 000000A8
+
+Symbol: TinhTBC
+   Definitions
+      At line 117 in file Bai1a.s
+   Uses
+      At line 112 in file Bai1a.s
+Comment: TinhTBC used once
+Xong 00000084
+
+Symbol: Xong
+   Definitions
+      At line 98 in file Bai1a.s
+   Uses
+      At line 94 in file Bai1a.s
+Comment: Xong used once
+74 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+N1 00000003
+
+Symbol: N1
+   Definitions
+      At line 187 in file Bai1a.s
+   Uses
+      At line 188 in file Bai1a.s
+      At line 235 in file Bai1a.s
+      At line 244 in file Bai1a.s
+
+1 symbol
+431 symbols in table

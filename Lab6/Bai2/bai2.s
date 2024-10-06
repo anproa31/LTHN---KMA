@@ -1,0 +1,24 @@
+;tìm chieu dài cua mot chuoi ki tu ket thúc
+	AREA RESET, DATA, READONLY
+		DCD 0x20002000
+		DCD start
+	ALIGN 
+CHUOIKT DCB "NGUYEN VAN MINH",0
+	AREA KETQUA, DATA,READWRITE
+KQ DCB 0 				
+	AREA MYCODE, CODE, READONLY 
+	ENTRY 
+start
+	LDR R0, =CHUOIKT 		
+	MOV R1, #0; SO KI TU	
+LOOP 
+	LDRB R2, [R0], #1 ; KIEM TRA VOI 0
+	CMP R2, #0 			;BANG THI KET THUC
+	BEQ EXIT 			
+	ADD R1,#1 	;TANG R1 LEN 1
+	B LOOP 			
+EXIT 
+	LDR R4, =KQ
+	STR R1, [R4]
+stop B stop
+	END

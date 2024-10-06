@@ -1,0 +1,15 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\Developer\Projects\Microcontroller\LTHN\Lab6\Bai4\bai4.uvproj
+Project File Date:  10/06/2024
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling Bai4.s...
+linking...
+.\bai4.sct(8): warning: L6314W: No section matches pattern *(InRoot$$Sections).
+Program Size: Code=56 RO-data=36 RW-data=4 ZI-data=0  
+".\bai4.axf" - 0 Errors, 1 Warning(s).

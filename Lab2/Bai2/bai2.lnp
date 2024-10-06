@@ -1,0 +1,6 @@
+--cpu Cortex-M3
+".\bai2.o"
+--strict --scatter ".\bai2.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\bai2.map" -o .\bai2.axf

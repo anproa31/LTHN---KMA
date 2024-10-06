@@ -1,0 +1,16 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\Developer\Projects\Microcontroller\LTHN\Lab1\Bai2\bai2.uvproj
+Project File Date:  09/05/2024
+
+<h2>Output:</h2>
+Rebuild target 'Target 1'
+assembling bai2.s...
+bai2.s(37): warning: A1447W: Missing END directive at end of file, but found a label named END
+linking...
+.\bai2.sct(8): warning: L6314W: No section matches pattern *(InRoot$$Sections).
+Program Size: Code=48 RO-data=12 RW-data=0 ZI-data=0  
+".\bai2.axf" - 0 Errors, 2 Warning(s).

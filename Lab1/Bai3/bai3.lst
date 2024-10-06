@@ -1,0 +1,99 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000 20001000        DCD              0x20001000
+    3 00000004 00000000        DCD              start
+    4 00000008 00000005 
+                       N       DCD              5
+    5 0000000C                 AREA             MYCODE, CODE ,READONLY
+    6 00000000                 ENTRY
+    7 00000000         
+    8 00000000         start
+    9 00000000         ;=========================
+   10 00000000 F04F 0101       MOV              R1,#1       ;tinh giai thua
+   11 00000004 F85F 2004       LDR              R2,N
+   12 00000008 F04F 0301       MOV              R3,#1
+   13 0000000C         
+   14 0000000C         ;5X4X3X2X1
+   15 0000000C         giaithua
+   16 0000000C 4293            CMP              R3,R2
+   17 0000000E D804            BHI              stop
+   18 00000010 FB01 F103       MUL              R1,R3
+   19 00000014 F103 0301       ADD              R3,#1
+   20 00000018 E7F8            B                giaithua
+   21 0000001A         
+   22 0000001A         
+   23 0000001A         
+   24 0000001A         stop
+   25 0000001A         
+   26 0000001A                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai3.d
+ -o.\bai3.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai3.lst bai3.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+N 00000008
+
+Symbol: N
+   Definitions
+      At line 4 in file bai3.s
+   Uses
+      At line 11 in file bai3.s
+Comment: N used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file bai3.s
+   Uses
+      None
+Comment: RESET unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+MYCODE 00000000
+
+Symbol: MYCODE
+   Definitions
+      At line 5 in file bai3.s
+   Uses
+      None
+Comment: MYCODE unused
+giaithua 0000000C
+
+Symbol: giaithua
+   Definitions
+      At line 15 in file bai3.s
+   Uses
+      At line 20 in file bai3.s
+Comment: giaithua used once
+start 00000000
+
+Symbol: start
+   Definitions
+      At line 8 in file bai3.s
+   Uses
+      At line 3 in file bai3.s
+Comment: start used once
+stop 0000001A
+
+Symbol: stop
+   Definitions
+      At line 24 in file bai3.s
+   Uses
+      At line 17 in file bai3.s
+Comment: stop used once
+4 symbols
+336 symbols in table

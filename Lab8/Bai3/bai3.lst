@@ -1,0 +1,174 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA, READONLY
+    2 00000000 20002000        DCD              0X20002000
+    3 00000004 00000000        DCD              MAIN
+    4 00000008 54 48 49 
+              45 4E 20 
+              4D 45 4E 
+              48 00    CHUOI   DCB              "THIEN MENH",0
+    5 00000013                 AREA             DATA1, DATA, READONLY
+    6 00000000 0A 09 08 
+              07 06 05 
+              04 02 03 
+              01 00 0B 
+              13 12 11 
+              10 0E 0F 
+              0D 0C 14 
+              16 18 19 
+              17 15    HOANVI  DCB              10,9,8,7,6,5,4,2,3,1,0,11,19,18
+,17,16,14,15,13,12,20,22,24,25,23,21
+    7 0000001A                 AREA             DATA2, DATA, READWRITE
+    8 00000000 00      RESULT  DCB              0
+    9 00000001                 AREA             HUU, CODE, READONLY
+   10 00000000                 ENTRY
+   11 00000000         MAIN
+   12 00000000 480A            LDR              R0, =CHUOI
+   13 00000002 490B            LDR              R1, =HOANVI
+   14 00000004 4A0B            LDR              R2, =RESULT
+   15 00000006         LOOP
+   16 00000006 F810 3B01       LDRB             R3, [R0], #1
+   17 0000000A 2B00            CMP              R3, #0
+   18 0000000C D00E            BEQ              STOP
+   19 0000000E 2B20            CMP              R3, #32
+   20 00000010 461C            MOV              R4, R3
+   21 00000012 D008            BEQ              SAVE1
+   22 00000014 F1A3 0341       SUB              R3, #65
+   23 00000018 5CCC            LDRB             R4, [R1,R3]
+   24 0000001A F104 0441       ADD              R4, #65
+   25 0000001E 2C5A            CMP              R4, #90
+   26 00000020 DD01            BLE              SAVE1
+   27 00000022 F1A4 041A       SUB              R4, #26
+   28 00000026         SAVE1
+   29 00000026 F802 4B01       STRB             R4, [R2], #1
+   30 0000002A E7EC            B                LOOP
+   31 0000002C         STOP
+   32 0000002C                 END
+              00000000 
+              00000000 
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai3.d
+ -o.\bai3.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai3.lst bai3.S
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+CHUOI 00000008
+
+Symbol: CHUOI
+   Definitions
+      At line 4 in file bai3.S
+   Uses
+      At line 12 in file bai3.S
+Comment: CHUOI used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file bai3.S
+   Uses
+      None
+Comment: RESET unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DATA1 00000000
+
+Symbol: DATA1
+   Definitions
+      At line 5 in file bai3.S
+   Uses
+      None
+Comment: DATA1 unused
+HOANVI 00000000
+
+Symbol: HOANVI
+   Definitions
+      At line 6 in file bai3.S
+   Uses
+      At line 13 in file bai3.S
+Comment: HOANVI used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DATA2 00000000
+
+Symbol: DATA2
+   Definitions
+      At line 7 in file bai3.S
+   Uses
+      None
+Comment: DATA2 unused
+RESULT 00000000
+
+Symbol: RESULT
+   Definitions
+      At line 8 in file bai3.S
+   Uses
+      At line 14 in file bai3.S
+Comment: RESULT used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+HUU 00000000
+
+Symbol: HUU
+   Definitions
+      At line 9 in file bai3.S
+   Uses
+      None
+Comment: HUU unused
+LOOP 00000006
+
+Symbol: LOOP
+   Definitions
+      At line 15 in file bai3.S
+   Uses
+      At line 30 in file bai3.S
+Comment: LOOP used once
+MAIN 00000000
+
+Symbol: MAIN
+   Definitions
+      At line 11 in file bai3.S
+   Uses
+      At line 3 in file bai3.S
+Comment: MAIN used once
+SAVE1 00000026
+
+Symbol: SAVE1
+   Definitions
+      At line 28 in file bai3.S
+   Uses
+      At line 21 in file bai3.S
+      At line 26 in file bai3.S
+
+STOP 0000002C
+
+Symbol: STOP
+   Definitions
+      At line 31 in file bai3.S
+   Uses
+      At line 18 in file bai3.S
+Comment: STOP used once
+5 symbols
+343 symbols in table

@@ -1,0 +1,23 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\Developer\Projects\Microcontroller\LTHN\Lab7\Bai2\bai2.uvproj
+Project File Date:  10/06/2024
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling bai2.S...
+bai2.S(23): error: A1516E: Bad symbol 'KETQUA', not defined or external
+bai2.S(24): error: A1516E: Bad symbol 'KT1', not defined or external
+bai2.S(25): error: A1516E: Bad symbol 'KT2', not defined or external
+bai2.S(29): error: A1516E: Bad symbol 'MATRAN2', not defined or external
+".\bai2.axf" - 4 Errors, 0 Warning(s).
+Target not created
+Build target 'Target 1'
+assembling bai2.S...
+linking...
+.\bai2.sct(8): warning: L6314W: No section matches pattern *(InRoot$$Sections).
+Program Size: Code=60 RO-data=144 RW-data=4 ZI-data=0  
+".\bai2.axf" - 0 Errors, 1 Warning(s).

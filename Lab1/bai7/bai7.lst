@@ -1,0 +1,151 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         
+    2 00000000                 AREA             RESET, DATA,READONLY
+    3 00000000 20001000        DCD              0X20001000
+    4 00000004 00000000        DCD              start
+    5 00000008 00000005 
+                       X       DCD              5
+    6 0000000C 00000006 
+                       Y       DCD              6
+    7 00000010                 AREA             MYCODE, CODE,READONLY
+    8 00000000                 ENTRY
+    9 00000000         
+   10 00000000         start
+   11 00000000         ;==============
+   12 00000000 F04F 0000       MOV              R0,#0
+   13 00000004 F85F 1004       LDR              R1,X
+   14 00000008 F85F 2004       LDR              R2,Y
+   15 0000000C         
+   16 0000000C         
+   17 0000000C 2900            CMP              R1,#0
+   18 0000000E DD0E            BLE              thoat
+   19 00000010 2A00            CMP              R2,#0
+   20 00000012 DD0C            BLE              thoat
+   21 00000014         looptru
+   22 00000014 4291            CMP              R1,R2       ;kiem tra
+   23 00000016 DB04            BLT              hoandoi
+   24 00000018         
+   25 00000018         tieptuc
+   26 00000018 EBA1 0102       SUB              R1,R2
+   27 0000001C 2900            CMP              R1,#0
+   28 0000001E D004            BEQ              ketqua
+   29 00000020 E7F8            B                looptru
+   30 00000022         
+   31 00000022         hoandoi
+   32 00000022 4614            MOV              R4,R2
+   33 00000024 460A            MOV              R2,R1
+   34 00000026 4621            MOV              R1,R4
+   35 00000028 E7F6            B                tieptuc
+   36 0000002A         ketqua
+   37 0000002A 4613            MOV              R3,R2
+   38 0000002C DF11            SWI              &11
+   39 0000002E         
+   40 0000002E         thoat
+   41 0000002E F04F 0300       MOV              R3,#0
+   42 00000032 DF11            SWI              &11
+   43 00000034         
+   44 00000034                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai7.d
+ -o.\bai7.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai7.lst bai7.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file bai7.s
+   Uses
+      None
+Comment: RESET unused
+X 00000008
+
+Symbol: X
+   Definitions
+      At line 5 in file bai7.s
+   Uses
+      At line 13 in file bai7.s
+Comment: X used once
+Y 0000000C
+
+Symbol: Y
+   Definitions
+      At line 6 in file bai7.s
+   Uses
+      At line 14 in file bai7.s
+Comment: Y used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+MYCODE 00000000
+
+Symbol: MYCODE
+   Definitions
+      At line 7 in file bai7.s
+   Uses
+      None
+Comment: MYCODE unused
+hoandoi 00000022
+
+Symbol: hoandoi
+   Definitions
+      At line 31 in file bai7.s
+   Uses
+      At line 23 in file bai7.s
+Comment: hoandoi used once
+ketqua 0000002A
+
+Symbol: ketqua
+   Definitions
+      At line 36 in file bai7.s
+   Uses
+      At line 28 in file bai7.s
+Comment: ketqua used once
+looptru 00000014
+
+Symbol: looptru
+   Definitions
+      At line 21 in file bai7.s
+   Uses
+      At line 29 in file bai7.s
+Comment: looptru used once
+start 00000000
+
+Symbol: start
+   Definitions
+      At line 10 in file bai7.s
+   Uses
+      At line 4 in file bai7.s
+Comment: start used once
+thoat 0000002E
+
+Symbol: thoat
+   Definitions
+      At line 40 in file bai7.s
+   Uses
+      At line 18 in file bai7.s
+      At line 20 in file bai7.s
+
+tieptuc 00000018
+
+Symbol: tieptuc
+   Definitions
+      At line 25 in file bai7.s
+   Uses
+      At line 35 in file bai7.s
+Comment: tieptuc used once
+7 symbols
+340 symbols in table

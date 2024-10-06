@@ -1,0 +1,154 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET , DATA ,READONLY
+    2 00000000 20001000        DCD              0x20001000  ; do dai du lieu la
+                                                             bao nhieu
+    3 00000004 00000000        DCD              start       ; 
+    4 00000008                 ALIGN
+    5 00000008         ; khai bao vung nho 
+    6 00000008         
+    7 00000008 00000001 
+              00000002 
+              00000003 MATRAN  DCD              1,2,3
+    8 00000014 00000003 
+              00000002 
+              00000001         DCD              3,2,1
+    9 00000020 00000001 
+              00000002 
+              00000003         DCD              1,2,3
+   10 0000002C         
+   11 0000002C         ;khai bao vung ma lenh 
+   12 0000002C                 AREA             KQ, DATA ,READWRITE
+   13 00000000 00000000 
+                       Tong    DCD              0
+   14 00000004                 AREA             mycode, CODE ,READONLY
+   15 00000000                 EXPORT           start
+   16 00000000                 ENTRY
+   17 00000000         start
+   18 00000000         ;===================================
+   19 00000000 00000009 
+                       sopt    EQU              9
+   20 00000000 4906            LDR              R1,=MATRAN
+   21 00000002 F04F 0209       LDR              R2,=sopt
+   22 00000006 680C            LDR              R4,[R1]
+   23 00000008 F04F 0000       MOV              R0,#0
+   24 0000000C         loop
+   25 0000000C 2A00            CMP              R2,#0
+   26 0000000E D005            BEQ              thoat
+   27 00000010 F851 4B04       LDR              R4,[R1], #4
+   28 00000014 4420            ADD              R0,R4
+   29 00000016 F1A2 0201       SUB              R2,#1
+   30 0000001A E7F7            B                loop
+   31 0000001C         
+   32 0000001C         thoat
+   33 0000001C                 END
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai4.d
+ -o.\bai4.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai4.lst bai4.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+MATRAN 00000008
+
+Symbol: MATRAN
+   Definitions
+      At line 7 in file bai4.s
+   Uses
+      At line 20 in file bai4.s
+Comment: MATRAN used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file bai4.s
+   Uses
+      None
+Comment: RESET unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+KQ 00000000
+
+Symbol: KQ
+   Definitions
+      At line 12 in file bai4.s
+   Uses
+      None
+Comment: KQ unused
+Tong 00000000
+
+Symbol: Tong
+   Definitions
+      At line 13 in file bai4.s
+   Uses
+      None
+Comment: Tong unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+loop 0000000C
+
+Symbol: loop
+   Definitions
+      At line 24 in file bai4.s
+   Uses
+      At line 30 in file bai4.s
+Comment: loop used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 14 in file bai4.s
+   Uses
+      None
+Comment: mycode unused
+start 00000000
+
+Symbol: start
+   Definitions
+      At line 17 in file bai4.s
+   Uses
+      At line 3 in file bai4.s
+      At line 15 in file bai4.s
+
+thoat 0000001C
+
+Symbol: thoat
+   Definitions
+      At line 32 in file bai4.s
+   Uses
+      At line 26 in file bai4.s
+Comment: thoat used once
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+sopt 00000009
+
+Symbol: sopt
+   Definitions
+      At line 19 in file bai4.s
+   Uses
+      At line 21 in file bai4.s
+Comment: sopt used once
+1 symbol
+341 symbols in table

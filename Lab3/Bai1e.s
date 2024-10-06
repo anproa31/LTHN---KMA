@@ -1,0 +1,28 @@
+/*	AREA RESET,DATA,READONLY
+		DCD 0x20000000
+		DCD Start
+N DCD 3
+X DCD 2
+	AREA MYCODE,CODE,READONLY
+		ENTRY
+Loop PROC
+	MUL R1,R2
+	ADD R3,#1
+	CMP R3,R0
+	BLE Loop
+	BX LR
+	ENDP
+Start PROC
+	LDR R0,N
+	CMP R0,#0
+	BLT Stop	
+	MOV R1,#1 ;Ket qua
+	CMP R0,#0
+	BEQ Stop
+	LDR R2,X
+	MOV R3,#1
+	BL Loop
+
+Stop
+	B Stop
+	END*/

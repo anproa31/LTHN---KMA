@@ -1,0 +1,111 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Khai báo vùng du lieu
+    2 00000000                 AREA             RESET, DATA, readonly
+    3 00000000 20001000        DCD              0x20001000  ;khoi tao gia tri c
+                                                            on tro ngan xep (SP
+                                                             - R13)
+    4 00000004 00000000        DCD              main
+    5 00000008         
+    6 00000008         
+    7 00000008         ; khai báo du lieu   
+    8 00000008         
+    9 00000008         
+   10 00000008         ; khai bao vung ma lenh
+   11 00000008                 AREA             mycode, CODE, READONLY
+   12 00000000                 ENTRY
+   13 00000000         
+   14 00000000         main
+   15 00000000         ;=============
+   16 00000000 00000005 
+                       N       EQU              5
+   17 00000000         
+   18 00000000 F04F 0100       MOV              R1,#0       ;Gan R1=0
+   19 00000004 F04F 0205       LDR              R2,=N
+   20 00000008         
+   21 00000008         TinhTong
+   22 00000008 4411            ADD              R1,R2       ;R1 =R1+R2
+   23 0000000A 3A01            SUBS             R2,#1       ;R2 = R2 - 1
+   24 0000000C 2A00            CMP              R2,#0       ;So sanh R2 voi 0
+   25 0000000E DCFB            BGT              TinhTong
+   26 00000010         stop
+   27 00000010 E7FE            B                stop
+   28 00000012         
+   29 00000012                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai1.d
+ -o.\bai1.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai1.lst bai1.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file bai1.s
+   Uses
+      None
+Comment: RESET unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+TinhTong 00000008
+
+Symbol: TinhTong
+   Definitions
+      At line 21 in file bai1.s
+   Uses
+      At line 25 in file bai1.s
+Comment: TinhTong used once
+main 00000000
+
+Symbol: main
+   Definitions
+      At line 14 in file bai1.s
+   Uses
+      At line 4 in file bai1.s
+Comment: main used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 11 in file bai1.s
+   Uses
+      None
+Comment: mycode unused
+stop 00000010
+
+Symbol: stop
+   Definitions
+      At line 26 in file bai1.s
+   Uses
+      At line 27 in file bai1.s
+Comment: stop used once
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+N 00000005
+
+Symbol: N
+   Definitions
+      At line 16 in file bai1.s
+   Uses
+      At line 19 in file bai1.s
+Comment: N used once
+1 symbol
+336 symbols in table

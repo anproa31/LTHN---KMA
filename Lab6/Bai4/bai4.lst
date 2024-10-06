@@ -1,0 +1,183 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; CHUAN HOA XAU
+    2 00000000                 AREA             RESET, DATA, READONLY
+    3 00000000 20002000        DCD              0X20002000
+    4 00000004 00000000        DCD              start
+    5 00000008 20 20 20 
+              4E 67 75 
+              79 65 6E 
+              20 56 61 
+              6E 20 4D 
+              69 6E 68 
+              20 20 20 
+              20 20 20 
+              20 00    chuoi   DCB              "   Nguyen Van Minh       ",0
+    6 00000022         
+    7 00000022                 AREA             KETQUA, DATA, READWRITE
+    8 00000000 00      KQ      DCB              0
+    9 00000001         
+   10 00000001                 AREA             MYCODE, CODE, READONLY
+   11 00000000                 ENTRY
+   12 00000000         start
+   13 00000000 480B            LDR              R0, =chuoi
+   14 00000002 490C            LDR              R1, =KQ
+   15 00000004         LOOP1                                ; XOA KI TU CACH O 
+                                                            DAU CHUONG TRIFNH
+   16 00000004 F810 2B01       LDRB             R2, [R0], #1 ;LAY KI TU DAU TIE
+                                                            N CUA CHUOI
+   17 00000008 2A20            CMP              R2, #32     ; SO SANH VOI DAU C
+                                                            ACH DAU CAC CO DANG
+                                                             LA &#32
+   18 0000000A D0FB            BEQ              LOOP1       ;NEU BANG THI QUAY 
+                                                            LAI KIEM TRA XEM KI
+                                                             TU TIEP THEO XEM P
+                                                            HAI DAU CACH HAY K
+   19 0000000C 2A00            CMP              R2, #0      ;KIEM TRA XEM R2 CO
+                                                             PHAI KI TU KET THU
+                                                            C K NEU LA KET THUC
+                                                             THI DUNG LAI
+   20 0000000E D009            BEQ              STOP        ;
+   21 00000010 F801 2B01       STRB             R2, [R1], #1 ;CON NEU K PHAI KH
+                                                            OANG TRANG HAY 0  T
+                                                            HI LUU VAO KQ 0xR1 
+                                                            = 0X
+   22 00000014 E7FF            B                NEXT
+   23 00000016         NEXT
+   24 00000016 F810 2B01       LDRB             R2, [R0], #1 ; LAY KI TU TIEP T
+                                                            HEO
+   25 0000001A F801 2B01       STRB             R2, [R1], #1 ; LUU NO VAO R1 0x
+                                                            R1 = 0X OX
+   26 0000001E 2A20            CMP              R2, #32     ; KIEM TRA XEM PHAI
+                                                             DAU CACH K
+   27 00000020 D0F0            BEQ              LOOP1       ;NEU LA DAU CACH TH
+                                                            I QUAY LAI LOOP1
+   28 00000022 E7F8            B                NEXT
+   29 00000024         STOP
+   30 00000024 F1A1 0101       SUB              R1, #1      ; TRU DI PHAN TU CU
+                                                            OI CUNG LA DAU CACH
+                                                            
+   31 00000028 F04F 0200       MOV              R2, #0      ;SAU DO ADD KI TU K
+                                                            ET THUC VAO CUOI 
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   32 0000002C 700A            STRB             R2, [R1]
+   33 0000002E E7FE    EXIT    B                EXIT
+   34 00000030                 END
+              00000000 
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai4.d
+ -o.\bai4.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai4.lst Bai4.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file Bai4.s
+   Uses
+      None
+Comment: RESET unused
+chuoi 00000008
+
+Symbol: chuoi
+   Definitions
+      At line 5 in file Bai4.s
+   Uses
+      At line 13 in file Bai4.s
+Comment: chuoi used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+KETQUA 00000000
+
+Symbol: KETQUA
+   Definitions
+      At line 7 in file Bai4.s
+   Uses
+      None
+Comment: KETQUA unused
+KQ 00000000
+
+Symbol: KQ
+   Definitions
+      At line 8 in file Bai4.s
+   Uses
+      At line 14 in file Bai4.s
+Comment: KQ used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+EXIT 0000002E
+
+Symbol: EXIT
+   Definitions
+      At line 33 in file Bai4.s
+   Uses
+      At line 33 in file Bai4.s
+Comment: EXIT used once
+LOOP1 00000004
+
+Symbol: LOOP1
+   Definitions
+      At line 15 in file Bai4.s
+   Uses
+      At line 18 in file Bai4.s
+      At line 27 in file Bai4.s
+
+MYCODE 00000000
+
+Symbol: MYCODE
+   Definitions
+      At line 10 in file Bai4.s
+   Uses
+      None
+Comment: MYCODE unused
+NEXT 00000016
+
+Symbol: NEXT
+   Definitions
+      At line 23 in file Bai4.s
+   Uses
+      At line 22 in file Bai4.s
+      At line 28 in file Bai4.s
+
+STOP 00000024
+
+Symbol: STOP
+   Definitions
+      At line 29 in file Bai4.s
+   Uses
+      At line 20 in file Bai4.s
+Comment: STOP used once
+start 00000000
+
+Symbol: start
+   Definitions
+      At line 12 in file Bai4.s
+   Uses
+      At line 4 in file Bai4.s
+Comment: start used once
+6 symbols
+342 symbols in table

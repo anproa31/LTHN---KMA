@@ -1,0 +1,134 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;tìm chieu dài cua mot chuoi ki tu ket thúc
+    2 00000000                 AREA             RESET, DATA, READONLY
+    3 00000000 20002000        DCD              0x20002000
+    4 00000004 00000000        DCD              start
+    5 00000008                 ALIGN
+    6 00000008 4E 47 55 
+              59 45 4E 
+              20 56 41 
+              4E 20 4D 
+              49 4E 48 
+              00       CHUOIKT DCB              "NGUYEN VAN MINH",0
+    7 00000018                 AREA             KETQUA, DATA,READWRITE
+    8 00000000 00      KQ      DCB              0
+    9 00000001                 AREA             MYCODE, CODE, READONLY
+   10 00000000                 ENTRY
+   11 00000000         start
+   12 00000000 4806            LDR              R0, =CHUOIKT
+   13 00000002 F04F 0100       MOV              R1, #0      ; SO KI TU 
+   14 00000006         LOOP
+   15 00000006 F810 2B01       LDRB             R2, [R0], #1 ; KIEM TRA VOI 0
+   16 0000000A 2A00            CMP              R2, #0      ;BANG THI KET THUC
+   17 0000000C D002            BEQ              EXIT
+   18 0000000E F101 0101       ADD              R1,#1       ;TANG R1 LEN 1
+   19 00000012 E7F8            B                LOOP
+   20 00000014         EXIT
+   21 00000014 4C02            LDR              R4, =KQ
+   22 00000016 6021            STR              R1, [R4]
+   23 00000018 E7FE    stop    B                stop
+   24 0000001A                 END
+              00 00 00000000 
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai2.d
+ -o.\bai2.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai2.lst bai2.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+CHUOIKT 00000008
+
+Symbol: CHUOIKT
+   Definitions
+      At line 6 in file bai2.s
+   Uses
+      At line 12 in file bai2.s
+Comment: CHUOIKT used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file bai2.s
+   Uses
+      None
+Comment: RESET unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+KETQUA 00000000
+
+Symbol: KETQUA
+   Definitions
+      At line 7 in file bai2.s
+   Uses
+      None
+Comment: KETQUA unused
+KQ 00000000
+
+Symbol: KQ
+   Definitions
+      At line 8 in file bai2.s
+   Uses
+      At line 21 in file bai2.s
+Comment: KQ used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+EXIT 00000014
+
+Symbol: EXIT
+   Definitions
+      At line 20 in file bai2.s
+   Uses
+      At line 17 in file bai2.s
+Comment: EXIT used once
+LOOP 00000006
+
+Symbol: LOOP
+   Definitions
+      At line 14 in file bai2.s
+   Uses
+      At line 19 in file bai2.s
+Comment: LOOP used once
+MYCODE 00000000
+
+Symbol: MYCODE
+   Definitions
+      At line 9 in file bai2.s
+   Uses
+      None
+Comment: MYCODE unused
+start 00000000
+
+Symbol: start
+   Definitions
+      At line 11 in file bai2.s
+   Uses
+      At line 4 in file bai2.s
+Comment: start used once
+stop 00000018
+
+Symbol: stop
+   Definitions
+      At line 23 in file bai2.s
+   Uses
+      At line 23 in file bai2.s
+Comment: stop used once
+5 symbols
+341 symbols in table

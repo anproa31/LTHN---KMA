@@ -1,0 +1,37 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\Developer\Projects\Microcontroller\LTHN\Lab1\bai5\bai5.uvproj
+Project File Date:  09/05/2024
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling bai5.s...
+bai5.s(17): error: A1821E: Expected constant or register expression
+".\bai5.axf" - 1 Errors, 0 Warning(s).
+Target not created
+Build target 'Target 1'
+assembling bai5.s...
+bai5.s(18): error: A1516E: Bad symbol 'stop', not defined or external
+".\bai5.axf" - 1 Errors, 0 Warning(s).
+Target not created
+Build target 'Target 1'
+assembling bai5.s...
+bai5.s(18): error: A1516E: Bad symbol 'stop', not defined or external
+".\bai5.axf" - 1 Errors, 0 Warning(s).
+Target not created
+Build target 'Target 1'
+assembling bai5.s...
+linking...
+.\bai5.sct(8): warning: L6314W: No section matches pattern *(InRoot$$Sections).
+Program Size: Code=48 RO-data=16 RW-data=0 ZI-data=0  
+".\bai5.axf" - 0 Errors, 1 Warning(s).
+Build target 'Target 1'
+assembling bai5.s...
+bai5.s(34): warning: A1447W: Missing END directive at end of file, but found a label named END
+linking...
+.\bai5.sct(8): warning: L6314W: No section matches pattern *(InRoot$$Sections).
+Program Size: Code=32 RO-data=16 RW-data=0 ZI-data=0  
+".\bai5.axf" - 0 Errors, 2 Warning(s).

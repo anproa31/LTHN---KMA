@@ -1,0 +1,164 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;; TINH TICH VO HUONG 2 VECTOR 
+    2 00000000                 AREA             RESET, DATA, READONLY
+    3 00000000 20002000        DCD              0X20002000
+    4 00000004 00000000        DCD              MAIN
+    5 00000008                 AREA             DATA, DATA, READONLY
+    6 00000000 00000004 
+                       VECTOR1 DCD              4           ; DO DAI VECTOR
+    7 00000004 01 02 03 
+              04               DCB              1,2,3,4
+    8 00000008 00000004 
+                       VECTOR2 DCD              4
+    9 0000000C 02 03 05 
+              06               DCB              2,3,5,6
+   10 00000010                 AREA             KETQUA, DATA, READWRITE
+   11 00000000 00000000 
+                       KQ      DCD              0
+   12 00000004                 AREA             HUU, CODE, READONLY
+   13 00000000                 ENTRY
+   14 00000000         MAIN
+   15 00000000 480D            LDR              R0, =VECTOR1
+   16 00000002 490E            LDR              R1, =VECTOR2
+   17 00000004 F850 2B04       LDR              R2, [R0], #4
+   18 00000008 F851 3B04       LDR              R3, [R1], #4
+   19 0000000C 429A            CMP              R2, R3
+   20 0000000E D111            BNE              STOP        ; DO DAI 2 VECTOR K
+                                                            HAC NHAU
+   21 00000010 F04F 0700       MOV              R7, #0      ; KQ CUOI
+   22 00000014 F04F 0600       MOV              R6, #0      ; TG
+   23 00000018         LOOP
+   24 00000018 F810 4B01       LDRB             R4,[R0], #1
+   25 0000001C F811 5B01       LDRB             R5,[R1], #1
+   26 00000020 FB04 F605       MUL              R6, R4, R5
+   27 00000024 4437            ADD              R7, R6
+   28 00000026 F1A2 0201       SUB              R2, #1
+   29 0000002A F1A3 0301       SUB              R3, #1
+   30 0000002E 2A00            CMP              R2, #0
+   31 00000030 D000            BEQ              STOP
+   32 00000032 E7F1            B                LOOP
+   33 00000034         STOP
+   34 00000034 4A02            LDR              R2,=KQ
+   35 00000036 6017            STR              R7, [R2]
+   36 00000038                 END
+              00000000 
+              00000000 
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai1.d
+ -o.\bai1.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai1.lst Bai1.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file Bai1.s
+   Uses
+      None
+Comment: RESET unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+DATA 00000000
+
+Symbol: DATA
+   Definitions
+      At line 5 in file Bai1.s
+   Uses
+      None
+Comment: DATA unused
+VECTOR1 00000000
+
+Symbol: VECTOR1
+   Definitions
+      At line 6 in file Bai1.s
+   Uses
+      At line 15 in file Bai1.s
+Comment: VECTOR1 used once
+VECTOR2 00000008
+
+Symbol: VECTOR2
+   Definitions
+      At line 8 in file Bai1.s
+   Uses
+      At line 16 in file Bai1.s
+Comment: VECTOR2 used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+KETQUA 00000000
+
+Symbol: KETQUA
+   Definitions
+      At line 10 in file Bai1.s
+   Uses
+      None
+Comment: KETQUA unused
+KQ 00000000
+
+Symbol: KQ
+   Definitions
+      At line 11 in file Bai1.s
+   Uses
+      At line 34 in file Bai1.s
+Comment: KQ used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+HUU 00000000
+
+Symbol: HUU
+   Definitions
+      At line 12 in file Bai1.s
+   Uses
+      None
+Comment: HUU unused
+LOOP 00000018
+
+Symbol: LOOP
+   Definitions
+      At line 23 in file Bai1.s
+   Uses
+      At line 32 in file Bai1.s
+Comment: LOOP used once
+MAIN 00000000
+
+Symbol: MAIN
+   Definitions
+      At line 14 in file Bai1.s
+   Uses
+      At line 4 in file Bai1.s
+Comment: MAIN used once
+STOP 00000034
+
+Symbol: STOP
+   Definitions
+      At line 33 in file Bai1.s
+   Uses
+      At line 20 in file Bai1.s
+      At line 31 in file Bai1.s
+
+4 symbols
+342 symbols in table

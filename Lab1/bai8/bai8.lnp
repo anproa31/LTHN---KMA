@@ -1,0 +1,6 @@
+--cpu Cortex-M3
+".\bai8.o"
+--strict --scatter ".\bai8.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\bai8.map" -o .\bai8.axf

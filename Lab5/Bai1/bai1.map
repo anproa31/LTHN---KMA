@@ -1,0 +1,122 @@
+ARM Linker, 5.03 [Build 76] [MDK-ARM Standard]
+
+==============================================================================
+
+Section Cross References
+
+    bai1.o(MYCODE1) refers to bai1.o(RESET1) for SPT28
+    bai1.o(MYCODE1) refers to bai1.o(Mycode) for THOAT
+    bai1.o(MYCODE1) refers to bai1.o(KQ) for Coso28
+    bai1.o(RESET) refers to bai1.o(Mycode) for start
+    bai1.o(Mycode) refers to bai1.o(RESET) for chon
+    bai1.o(Mycode) refers to bai1.o(MYCODE1) for H2_H8
+    bai1.o(Mycode) refers to bai1.o(RESET1) for Coso10_CS2
+    bai1.o(Mycode) refers to bai1.o(KQ) for Coso1602
+
+
+==============================================================================
+
+Image Symbol Table
+
+    Local Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    bai1.s                                   0x00000000   Number         0  bai1.o ABSOLUTE
+    RESET                                    0x08000000   Section       17  bai1.o(RESET)
+    chon                                     0x08000008   Data           4  bai1.o(RESET)
+    Coso16                                   0x0800000c   Data           4  bai1.o(RESET)
+    SPT16                                    0x08000010   Data           1  bai1.o(RESET)
+    MYCODE1                                  0x08000014   Section       76  bai1.o(MYCODE1)
+    H2_H8                                    0x08000015   Thumb Code    66  bai1.o(MYCODE1)
+    H8_H16                                   0x08000057   Thumb Code     2  bai1.o(MYCODE1)
+    Mycode                                   0x08000060   Section      232  bai1.o(Mycode)
+    THOAT                                    0x08000085   Thumb Code     0  bai1.o(Mycode)
+    H16_H2                                   0x08000087   Thumb Code    86  bai1.o(Mycode)
+    H10_H2                                   0x080000dd   Thumb Code    44  bai1.o(Mycode)
+    H10_H16                                  0x08000109   Thumb Code    44  bai1.o(Mycode)
+    H16_H8                                   0x08000135   Thumb Code     2  bai1.o(Mycode)
+    H2_H10                                   0x08000137   Thumb Code     2  bai1.o(Mycode)
+    RESET1                                   0x08000148   Section       23  bai1.o(RESET1)
+    Coso10_CS2                               0x08000148   Data           4  bai1.o(RESET1)
+    Coso10                                   0x0800014c   Data           4  bai1.o(RESET1)
+    CoSo2_CS8                                0x08000150   Data           9  bai1.o(RESET1)
+    SPT28                                    0x08000159   Data           1  bai1.o(RESET1)
+    KQ                                       0x20000000   Section        5  bai1.o(KQ)
+    Coso1602                                 0x20000000   Data           1  bai1.o(KQ)
+    Coso1002                                 0x20000001   Data           1  bai1.o(KQ)
+    Coso1016                                 0x20000002   Data           1  bai1.o(KQ)
+    Coso28                                   0x20000003   Data           1  bai1.o(KQ)
+
+    Global Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    BuildAttributes$$THM_ISAv4$P$D$K$B$S$PE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$EBA8$STANDARDLIB$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+    start                                    0x08000061   Thumb Code     0  bai1.o(Mycode)
+
+
+
+==============================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x08000061
+
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00000168, Max: 0x00020000, ABSOLUTE)
+
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00000160, Max: 0x00020000, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x08000000   0x00000011   Data   RO            2    RESET               bai1.o
+    0x08000011   0x00000003   PAD
+    0x08000014   0x0000004c   Code   RO            1    MYCODE1             bai1.o
+    0x08000060   0x000000e8   Code   RO            5  * Mycode              bai1.o
+    0x08000148   0x00000017   Data   RO            3    RESET1              bai1.o
+
+
+    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00000008, Max: 0x00002000, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x00000005   Data   RW            4    KQ                  bai1.o
+
+
+==============================================================================
+
+Image component sizes
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
+
+       308         24         40          5          0        808   bai1.o
+
+    ----------------------------------------------------------------------
+       308         24         44          8          0        808   Object Totals
+         0          0          0          0          0          0   (incl. Generated)
+         0          0          4          3          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+         0          0          0          0          0          0   Library Totals
+         0          0          0          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+==============================================================================
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
+
+       308         24         44          8          0        756   Grand Totals
+       308         24         44          8          0        756   ELF Image Totals
+       308         24         44          8          0          0   ROM Totals
+
+==============================================================================
+
+    Total RO  Size (Code + RO Data)                  352 (   0.34kB)
+    Total RW  Size (RW Data + ZI Data)                 8 (   0.01kB)
+    Total ROM Size (Code + RO Data + RW Data)        360 (   0.35kB)
+
+==============================================================================
+

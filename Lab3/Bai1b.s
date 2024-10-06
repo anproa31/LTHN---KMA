@@ -1,0 +1,38 @@
+/*	AREA RESET,DATA,READONLY
+		DCD 0x20000000
+		DCD Start
+N DCD 5
+TongChan DCD 0
+TongLe DCD 0
+	AREA MYCODE,CODE,READONLY
+			ENTRY
+TinhTongChan PROC
+	ADD R0,R4
+	ADD R4,R2
+	CMP R4,R5
+	BLE TinhTongChan
+	LDR R6,=TongChan
+	STR R6,[R0]
+	BX LR
+	ENDP
+TinhTongLe PROC
+	ADD R0,R3
+	ADD R3,R2
+	CMP R3,R5
+	BLE TinhTongLe
+	LDR R6,=TongLe
+	STR R6,[R0]
+	BX LR
+	ENDP
+Start PROC
+	MOV R0,#0
+	MOV R2,#2
+	MOV R3,#1
+	MOV R4,#2
+	LDR R5,N
+	BL TinhTongChan
+	MOV R0,#0
+	BL TinhTongLe
+Stop 
+	B Stop
+	END*/

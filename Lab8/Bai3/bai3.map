@@ -1,0 +1,100 @@
+ARM Linker, 5.03 [Build 76] [MDK-ARM Standard]
+
+==============================================================================
+
+Section Cross References
+
+    bai3.o(RESET) refers to bai3.o(HUU) for MAIN
+    bai3.o(HUU) refers to bai3.o(RESET) for CHUOI
+    bai3.o(HUU) refers to bai3.o(DATA1) for HOANVI
+    bai3.o(HUU) refers to bai3.o(DATA2) for RESULT
+
+
+==============================================================================
+
+Image Symbol Table
+
+    Local Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    bai3.S                                   0x00000000   Number         0  bai3.o ABSOLUTE
+    RESET                                    0x08000000   Section       19  bai3.o(RESET)
+    CHUOI                                    0x08000008   Data          11  bai3.o(RESET)
+    HUU                                      0x08000014   Section       56  bai3.o(HUU)
+    MAIN                                     0x08000015   Thumb Code     0  bai3.o(HUU)
+    DATA1                                    0x0800004c   Section       26  bai3.o(DATA1)
+    HOANVI                                   0x0800004c   Data          26  bai3.o(DATA1)
+    DATA2                                    0x20000000   Section        1  bai3.o(DATA2)
+    RESULT                                   0x20000000   Data           1  bai3.o(DATA2)
+
+    Global Symbols
+
+    Symbol Name                              Value     Ov Type        Size  Object(Section)
+
+    BuildAttributes$$THM_ISAv4$P$D$K$B$S$PE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$EBA8$STANDARDLIB$PRES8$EABIv2 0x00000000   Number         0  anon$$obj.o ABSOLUTE
+
+
+
+==============================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x08000015
+
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000006c, Max: 0x00020000, ABSOLUTE)
+
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00000068, Max: 0x00020000, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x08000000   0x00000013   Data   RO            1    RESET               bai3.o
+    0x08000013   0x00000001   PAD
+    0x08000014   0x00000038   Code   RO            4  * HUU                 bai3.o
+    0x0800004c   0x0000001a   Data   RO            2    DATA1               bai3.o
+
+
+    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00000004, Max: 0x00002000, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x00000001   Data   RW            3    DATA2               bai3.o
+
+
+==============================================================================
+
+Image component sizes
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
+
+        56         12         45          1          0        224   bai3.o
+
+    ----------------------------------------------------------------------
+        56         12         48          4          0        224   Object Totals
+         0          0          0          0          0          0   (incl. Generated)
+         0          0          3          3          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+         0          0          0          0          0          0   Library Totals
+         0          0          0          0          0          0   (incl. Padding)
+
+    ----------------------------------------------------------------------
+
+==============================================================================
+
+
+      Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
+
+        56         12         48          4          0        224   Grand Totals
+        56         12         48          4          0        224   ELF Image Totals
+        56         12         48          4          0          0   ROM Totals
+
+==============================================================================
+
+    Total RO  Size (Code + RO Data)                  104 (   0.10kB)
+    Total RW  Size (RW Data + ZI Data)                 4 (   0.00kB)
+    Total ROM Size (Code + RO Data + RW Data)        108 (   0.11kB)
+
+==============================================================================
+

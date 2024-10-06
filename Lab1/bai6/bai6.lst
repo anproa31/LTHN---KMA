@@ -1,0 +1,123 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET, DATA,READONLY
+    2 00000000 20001000        DCD              0x20001000
+    3 00000004 00000000        DCD              start
+    4 00000008                 ALIGN
+    5 00000008 00000004 
+                       X       DCD              4
+    6 0000000C 00000003 
+                       N       DCD              3
+    7 00000010         
+    8 00000010                 AREA             mycode,CODE,READONLY
+    9 00000000                 EXPORT           start
+   10 00000000                 ENTRY
+   11 00000000         start
+   12 00000000         ;======================
+   13 00000000 F04F 0001       MOV              R0,#1       ; Ket qua
+   14 00000004 F85F 1004       LDR              R1,X
+   15 00000008 F85F 2004       LDR              R2,N
+   16 0000000C F04F 0302       MOV              R3,#2       ; Bien dem
+   17 00000010 F85F 4004       LDR              R4,X
+   18 00000014         loop
+   19 00000014 4293            CMP              R3,R2
+   20 00000016 DC06            BGT              ketthuc
+   21 00000018 FB04 F401       MUL              R4,R1       ; R4 = R4 X R1
+   22 0000001C 4420            ADD              R0,R4
+   23 0000001E 4420            add              R0,R4
+   24 00000020 F103 0301       ADD              R3,#1
+   25 00000024 E7F6            B                loop
+   26 00000026         
+   27 00000026         ketthuc
+   28 00000026         
+   29 00000026 E7FE    stop    B                stop
+   30 00000028         ;======================
+   31 00000028                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai6.d
+ -o.\bai6.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai6.lst bai6.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+N 0000000C
+
+Symbol: N
+   Definitions
+      At line 6 in file bai6.s
+   Uses
+      At line 15 in file bai6.s
+Comment: N used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file bai6.s
+   Uses
+      None
+Comment: RESET unused
+X 00000008
+
+Symbol: X
+   Definitions
+      At line 5 in file bai6.s
+   Uses
+      At line 14 in file bai6.s
+      At line 17 in file bai6.s
+
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+ketthuc 00000026
+
+Symbol: ketthuc
+   Definitions
+      At line 27 in file bai6.s
+   Uses
+      At line 20 in file bai6.s
+Comment: ketthuc used once
+loop 00000014
+
+Symbol: loop
+   Definitions
+      At line 18 in file bai6.s
+   Uses
+      At line 25 in file bai6.s
+Comment: loop used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 8 in file bai6.s
+   Uses
+      None
+Comment: mycode unused
+start 00000000
+
+Symbol: start
+   Definitions
+      At line 11 in file bai6.s
+   Uses
+      At line 3 in file bai6.s
+      At line 9 in file bai6.s
+
+stop 00000026
+
+Symbol: stop
+   Definitions
+      At line 29 in file bai6.s
+   Uses
+      At line 29 in file bai6.s
+Comment: stop used once
+5 symbols
+338 symbols in table

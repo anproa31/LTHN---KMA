@@ -1,0 +1,2 @@
+Dependencies for Project 'bai7', Target 'Target 1': (DO NOT MODIFY !)
+F (.\bai7.s)(0x66E7CF49)(--cpu Cortex-M3 -g --apcs=interwork -I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\ST\STM32F10x--list .\bai7.lst --xref -o .\bai7.o --depend .\bai7.d)

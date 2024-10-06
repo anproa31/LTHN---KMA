@@ -1,0 +1,90 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET , DATA ,READONLY
+    2 00000000 20001000        DCD              0x20001000  ; do dai du lieu la
+                                                             bao nhieu
+    3 00000004 00000000        DCD              start       ; 
+    4 00000008                 ALIGN
+    5 00000008         ; khai bao vung nho 
+    6 00000008         
+    7 00000008 00000003 
+              00000002 
+              00000001 
+              00000004 
+              00000005 chuoi   DCD              3,2,1,4,5
+    8 0000001C         
+    9 0000001C         ;khai bao vung ma lenh 
+   10 0000001C                 AREA             KQ, DATA ,READWRITE
+   11 00000000 00000000 
+                       max     DCD              0
+   12 00000004 00000000 
+                       min     DCD              0
+   13 00000008                 AREA             mycode, CODE ,READONLY
+   14 00000000                 EXPORT           start
+   15 00000000                 ENTRY
+   16 00000000         start
+   17 00000000         ;=========================================
+   18 00000000 00000005 
+                       pt      EQU              5
+   19 00000000 4A0E            LDR              R2,=chuoi   ;LAY DIA CHI DAU TI
+                                                            EN CUA CHUOI
+   20 00000002 F04F 0305       LDR              R3,=pt      ;R3 = 5
+   21 00000006 F04F 0400       MOV              R4,#0       ; BIEN NHAY
+   22 0000000A F85F 5004       LDR              R5, chuoi
+   23 0000000E 4628            MOV              R0,R5       ;max
+   24 00000010 4629            MOV              R1,R5       ;min
+   25 00000012         loop
+   26 00000012 2B00            CMP              R3,#0
+   27 00000014 D00C            BEQ              thoat
+   28 00000016 F852 5B04       LDR              R5,[R2],#4
+   29 0000001A 4285            CMP              R5,R0       ;kiem tra xem R5 Co
+                                                             lon hon R0 HAY K 
+   30 0000001C DC04            BGT              PMAX
+   31 0000001E 428D            CMP              R5,R1
+   32 00000020 DB04            BLT              PMIN        ;kiem tra xem R5 Co
+                                                             NHO hon R1 HAY K 
+   33 00000022 F1A3 0301       SUB              R3,#1       ; khi nhay se sang 
+                                                            phan tu tiep theo c
+                                                            huoi so se giam di 
+                                                            1
+   34 00000026 E7F4            B                loop
+   35 00000028         
+   36 00000028         PMAX
+   37 00000028 4628            MOV              R0,R5       ; gan R5 cho R0
+   38 0000002A E000            B                tieptuc
+   39 0000002C         
+   40 0000002C         PMIN
+   41 0000002C 4629            MOV              R1,R5       ; gan R5 cho R1
+   42 0000002E E000            B                tieptuc
+   43 00000030         
+   44 00000030         
+   45 00000030         
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   46 00000030         
+   47 00000030         
+   48 00000030         thoat
+   49 00000030 4E03            LDR              R6,=max     ;gan dia chi max va
+                                                            o R6
+   50 00000032 6030            STR              R0,[R6]     ; LUU gia tri R0 va
+                                                            o dia chi R6 
+   51 00000034 4F03            LDR              R7,=min
+   52 00000036 6039            STR              R1,[R7]
+   53 00000038 DF11            SWI              &11
+   54 0000003A         
+   55 0000003A         
+   56 0000003A                 END
+              00 00 00000000 
+              00000000 
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai2_a
+no.d -o.\bai2_ano.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -I
+C:\Keil_v5\ARM\Inc\ST\STM32F10x --list=.\bai2_ano.lst bai2_ano.s

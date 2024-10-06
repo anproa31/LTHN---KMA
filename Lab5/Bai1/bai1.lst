@@ -1,0 +1,682 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         
+    2 00000000                 INCLUDE          CS2_CS8.s
+    1 00000000                 AREA             MYCODE1,CODE,READONLY
+    2 00000000         H2_H8   PROC
+    3 00000000 F81F 0004       LDRB             R0,SPT28    ;spt cua chuoi bit
+    4 00000004 490F            LDR              R1,=CoSo2_CS8 ; Dia chi dau tie
+                                                            n cua chuoi bit
+    5 00000006 4A10            LDR              R2,=Coso28  ;dia chi de luu gia
+                                                             tri
+    6 00000008 4402            ADD              R2,R0
+    7 0000000A         ;ADD R1,#8
+    8 0000000A         LOOP6
+    9 0000000A 2800            CMP              R0, #0
+   10 0000000C D017            BEQ              EXIT5
+   11 0000000E F04F 0500       MOV              R5,#0       ;KET QUA
+   12 00000012 F04F 0604       MOV              R6,#4
+   13 00000016 F811 3B01       LDRB             R3,[R1],#1  ;R3 = R1 TANG DIA C
+                                                            HI R1 LEN 1
+   14 0000001A FB03 F306       MUL              R3,R6       ; R4 = R3 X 2^2
+   15 0000001E 441D            ADD              R5,R3
+   16 00000020 F811 3B01       LDRB             R3,[R1],#1
+   17 00000024 F04F 0602       MOV              R6,#2
+   18 00000028 FB03 F306       MUL              R3,R6
+   19 0000002C 441D            ADD              R5,R3
+   20 0000002E F811 3B01       LDRB             R3,[R1],#1
+   21 00000032 441D            ADD              R5,R3
+   22 00000034 F802 5B01       STRB             R5,[R2],#1
+   23 00000038 F1A0 0001       SUB              R0,#1
+   24 0000003C E7E5            B                LOOP6
+   25 0000003E         EXIT5
+   26 0000003E E7FE            B                THOAT
+   27 00000040 4770            BX               LR
+   28 00000042                 ENDP
+   29 00000042         ;=======================================================
+                       =========================================
+   30 00000042         H8_H16  PROC
+   31 00000042         ;LDRB R0, SPT816 ; R0 = 4
+   32 00000042         ;SUB R0, #1 ; R0 = R0 -1
+   33 00000042         ;LDR R1, =DULIEU816 ;DIA CHI DT CUA DULIEU
+   34 00000042         ;LDR R2, =KQ816 ;DIA CHI CUA RESULT
+   35 00000042         ;ADD R2,#10 ;add 10 dia chi o nho
+   36 00000042         ;MOV R3, #8 ;dung de chia
+   37 00000042         ;MOV R4, #0; KQ O HE 10
+   38 00000042         ;LOOP1
+   39 00000042         ;CMP R0, #0 ;kiem tra
+   40 00000042         ;BEQ TG ; lay phan tu cuoi cùng
+   41 00000042         ;LDRB R5, [R1], #1
+   42 00000042         ;MOV R6, #1; I
+   43 00000042         ;NHAN
+   44 00000042         ;MUL R5, R3
+   45 00000042         ;ADD R6, #1
+   46 00000042         ;CMP R6, R0
+   47 00000042         ;BLE NHAN
+   48 00000042         ;ADD R4, R5
+   49 00000042         ;SUB R0, #1
+   50 00000042         ;B LOOP1
+   51 00000042         ;TG; LAY PHAN TU CUOI CUNG RA
+   52 00000042         ;LDRB R5, [R1]
+   53 00000042         ;ADD R4, R5
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   54 00000042         ;STR R4, [R2]
+   55 00000042         ;LDR R3, =RESULT2
+   56 00000042         ;MOV R4, 0XF; MASK
+   57 00000042         ;LOOP2;
+   58 00000042         ;LDRB R5, [R2], #1
+   59 00000042         ;CMP R5, #0
+   60 00000042         ;BEQ STOP
+   61 00000042         ;MOV R6, R5, LSR #0X4
+   62 00000042         ;MOV R6, R6, LSL #0X8
+   63 00000042         ;AND R5, R5, R4
+   64 00000042         ;ADD R6, R5
+   65 00000042         ;STRH R6, [R3], #2
+   66 00000042         ;B LOOP2
+   67 00000042         ;STOP
+   68 00000042         
+   69 00000042 4770            BX               LR
+   70 00000044                 ENDP
+   71 00000044         ;=======================================================
+                       =========================================
+   72 00000044                 END
+    3 00000044 00000000 
+              00000000         AREA             RESET,DATA,READONLY
+    4 00000000 20002000        DCD              0x20002000
+    5 00000004 00000000        DCD              start
+    6 00000008                 ALIGN
+    7 00000008 00000001 
+                       chon    DCD              1
+    8 0000000C         ;=======================
+    9 0000000C 0B 0D 0A 
+              05       Coso16  DCB              0xB,0xD,0xA,0x5
+   10 00000010 04      SPT16   DCB              4
+   11 00000011         ;=======================
+   12 00000011                 AREA             RESET1,DATA,READONLY
+   13 00000000 00000014 
+                       Coso10_CS2
+                               DCD              20
+   14 00000004         
+   15 00000004 000003E8 
+                       Coso10  DCD              1000
+   16 00000008         ;=======================
+   17 00000008         ;CO SO 2 SANG 8
+   18 00000008 00 01 00 
+              01 00 01 
+              01 01 00 CoSo2_CS8
+                               DCB              0,1,0,1,0,1,1,1,0
+   19 00000011 03      SPT28   DCB              3           ; 9 BIT cho ra 3 ki
+                                                             tu
+   20 00000012         
+   21 00000012         
+   22 00000012 07 05 02 
+              01       DULIEU816
+                               DCB              7,5,2,1
+   23 00000016 04      SPT816  DCB              4
+   24 00000017         
+   25 00000017         
+   26 00000017                 AREA             KQ,DATA,READWRITE
+   27 00000000 00      Coso1602
+                               DCB              0
+   28 00000001 00      Coso1002
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+                               DCB              0
+   29 00000002 00      Coso1016
+                               DCB              0
+   30 00000003 00      Coso28  DCB              0
+   31 00000004 00      KQ816   DCB              0
+   32 00000005                 AREA             Mycode,CODE,READONLY
+   33 00000000                 EXPORT           start
+   34 00000000                 ENTRY
+   35 00000000         start
+   36 00000000         ;=====================
+   37 00000000 F85F 0004       LDR              R0,chon
+   38 00000004 2801            CMP              R0,#1
+   39 00000006 D0FE            BEQ              H16_H2
+   40 00000008 2802            CMP              R0,#2
+   41 0000000A D0FE            BEQ              H10_H2
+   42 0000000C 2803            CMP              R0,#3
+   43 0000000E D0FE            BEQ              H10_H16
+   44 00000010 2804            CMP              R0,#4
+   45 00000012 F43F AFFE       BEQ              H2_H8
+   46 00000016 2805            CMP              R0,#5
+   47 00000018 F43F AFFE       BEQ              H8_H16
+   48 0000001C 2806            CMP              R0,#6
+   49 0000001E D0FE            BEQ              H16_H8
+   50 00000020 2807            CMP              R0,#7
+   51 00000022 D0FE            BEQ              H2_H10
+   52 00000024         
+   53 00000024         THOAT
+   54 00000024 E7FE    stop    B                stop
+   55 00000026         ;=======================================================
+                       =========================================
+   56 00000026         H16_H2  PROC
+   57 00000026 F81F 0004       LDRB             R0,SPT16    ;R0 = 4
+   58 0000002A 492B            LDR              R1,=Coso16  ;DIA CHI DAU TIEN
+   59 0000002C 4401            ADD              R1,R0       ; CHAY DEN DIA CHI 
+                                                            CUOI CUNG
+   60 0000002E F1A1 0101       SUB              R1,#1       ;GIAM 1
+   61 00000032 4A2A            LDR              R2, =Coso1602
+   62 00000034 F102 0210       ADD              R2,#16      ;CAP NHAT DIA CHI D
+                                                            E LUU NGUOC
+   63 00000038 F04F 0402       MOV              R4,#2       ;DUNG DE CHIA CO SO
+                                                            
+   64 0000003C         LOOP
+   65 0000003C 2800            CMP              R0,#0       ;KIEM TRA R0 VOI 0
+   66 0000003E D01B            BEQ              STOP1       ; BANG 0 THI DUNG
+   67 00000040 F811 3901       LDRB             R3,[R1],#-1 ;GIA TRI R3 BANG DI
+                                                            A CHI R1 -1
+   68 00000044 F04F 0704       MOV              R7,#4       ;MOT DU LIEU DC DOC
+                                                             VAO 4 BYTE THAY CH
+                                                            O 4 BIT
+   69 00000048         
+   70 00000048         LOOP1
+   71 00000048 FBB3 F5F4       UDIV             R5,R3,R4    ;CHIA LAY THUONG VD
+                                                             15/2 = 7 DU 1 HOAC
+                                                             18/2 = 9 DU 0
+   72 0000004C FB05 F604       MUL              R6,R5,R4    ; DUNG PHEP NHAN DE
+                                                             LAY SO DU VD 7x2 =
+                                                             14 => 15-14 du 1
+   73 00000050 EBA3 0306       SUB              R3,R6       ; KET QUA CUA PHEP 
+                                                            SUB LA SO DU CO THE
+
+
+
+ARM Macro Assembler    Page 4 
+
+
+                                                             LA 1 HOAC 0
+   74 00000054 F802 3901       STRB             R3,[R2],#-1 ;GIA TRI R3 SE DC G
+                                                            AN VAO DIA CHI CUOI
+                                                             CUNG CUA CHUOI
+   75 00000058         ; G N D?A CH? CUA R2 VAO R
+   76 00000058 F1A7 0701       SUB              R7,#1       ;GIAM DI 1 VI F = 1
+                                                            111 TA DC SO DAU TI
+                                                            EN LA 1 HOAC 0 SUY 
+                                                            RA CON 111 CHIA DC 
+                                                            CHO VAO
+   77 0000005C 2D00            CMP              R5,#0       ;KIEM TRA XEM DA CH
+                                                            IA HET CHUA
+   78 0000005E 462B            MOV              R3,R5       ;GAN GT R5 VAO R3 D
+                                                            E TIEP TUC CHIA
+   79 00000060 DCF2            BGT              LOOP1       ;TIEP TUC CHIA NEU 
+                                                            > 0
+   80 00000062 2F00            CMP              R7,#0       ; KIEM TRA CHO DEN 
+                                                            KHI NAO R7 = 0 CO N
+                                                            GHIA LA DA DU 4 BYT
+                                                            E
+   81 00000064 D005            BEQ              NEXT1       ; BANG THI GIA R0 D
+                                                            I 1 DE TIEP TUC SO 
+                                                            TIEP THEO
+   82 00000066         SAVE1
+   83 00000066 F802 5901       STRB             R5,[R2],#-1 ;NEU MA CHIA HET MA
+                                                             R7 VAN CHUA BANG 0
+                                                             THI TA TRU CHO DEN
+                                                             KHI R7 = 0
+   84 0000006A F1A7 0701       SUB              R7,#1       ; VD NHU 0001 LA CH
+                                                            IA DEN 1 LA HET CON
+                                                             000 THI SE DUNG CA
+                                                            I NAY
+   85 0000006E 2F00            CMP              R7,#0
+   86 00000070 DCF9            BGT              SAVE1       ; LUU VAO KHIA CHIA
+                                                             HET THI NEXT XUONG
+                                                            
+   87 00000072         
+   88 00000072         
+   89 00000072         NEXT1
+   90 00000072 F1A0 0001       SUB              R0,#1       ;TIEP TUC CHO KI TU
+                                                             TIEP THEO
+   91 00000076 E7E1            B                LOOP
+   92 00000078         
+   93 00000078         STOP1
+   94 00000078 E7D4            B                THOAT
+   95 0000007A 4770            BX               LR
+   96 0000007C                 ENDP
+   97 0000007C         ;=======================================================
+                       =========================================
+   98 0000007C         H10_H2  PROC
+   99 0000007C F81F 0004       LDRB             R0, Coso10_CS2
+  100 00000080 4917            LDR              R1, =Coso1002
+  101 00000082 F101 0164       ADD              R1, #100
+  102 00000086 F04F 0202       MOV              R2, #2
+  103 0000008A         LOOP2
+  104 0000008A 2802            CMP              R0,#2
+  105 0000008C DB09            BLT              STOP2
+  106 0000008E FBB0 F3F2       UDIV             R3, R0, R2  ; R3 LA THUONG
+  107 00000092 FB03 F402       MUL              R4, R3, R2
+
+
+
+ARM Macro Assembler    Page 5 
+
+
+  108 00000096 EBA0 0004       SUB              R0, R0, R4  ; R0 LA DU
+  109 0000009A F801 0901       STRB             R0, [R1], #-1
+  110 0000009E 4618            MOV              R0, R3      ; DEM THUONG DI CHI
+                                                            A TIEP
+  111 000000A0 E7F3            B                LOOP2
+  112 000000A2         STOP2
+  113 000000A2 7008            STRB             R0, [R1]
+  114 000000A4 E7BE            B                THOAT
+  115 000000A6 4770            BX               LR
+  116 000000A8                 ENDP
+  117 000000A8         ;=======================================================
+                       =========================================
+  118 000000A8         H10_H16 PROC
+  119 000000A8 F85F 0004       LDR              R0,Coso10   ;R0 = 1000
+  120 000000AC 490D            LDR              R1,=Coso1016
+  121 000000AE F101 0164       ADD              R1,#100
+  122 000000B2 F04F 0210       MOV              R2,#16
+  123 000000B6         LOOP5
+  124 000000B6 FBB0 F3F2       UDIV             R3,R0,R2    ; CHIA R0/R2 = R3
+  125 000000BA FB03 F402       MUL              R4,R3,R2    ;NHAN R4 = R3XR2
+  126 000000BE EBA0 0404       SUB              R4,R0,R4    ; KET QUA DU
+  127 000000C2 F801 4901       STRB             R4,[R1],#-1 ;LUU KET QUA VAO DI
+                                                            A CHI ROI GIAM DI 1
+                                                            
+  128 000000C6 2B00            CMP              R3,#0
+  129 000000C8 4618            MOV              R0,R3       ;GAN R3 VAO R0 DE C
+                                                            HIA TIEP
+  130 000000CA DCF4            BGT              LOOP5
+  131 000000CC F101 0101       ADD              R1,#1
+  132 000000D0 E7A8            B                THOAT
+  133 000000D2 4770            BX               LR
+  134 000000D4                 ENDP
+  135 000000D4         ;=======================================================
+                       =========================================
+  136 000000D4         H16_H8  PROC
+  137 000000D4 4770            BX               LR
+  138 000000D6                 ENDP
+  139 000000D6         ;=======================================================
+                       =========================================
+  140 000000D6         H2_H10  PROC
+  141 000000D6 4770            BX               LR
+  142 000000D8                 ENDP
+  143 000000D8         ;=======================================================
+                       =========================================
+  144 000000D8                 END
+              00000000 
+              00000000 
+              00000000 
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai1.d
+ -o.\bai1.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai1.lst bai1.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+EXIT5 0000003E
+
+Symbol: EXIT5
+   Definitions
+      At line 25 in file CS2_CS8.s
+   Uses
+      At line 10 in file CS2_CS8.s
+Comment: EXIT5 used once
+H2_H8 00000000
+
+Symbol: H2_H8
+   Definitions
+      At line 2 in file CS2_CS8.s
+   Uses
+      At line 45 in file bai1.s
+Comment: H2_H8 used once
+H8_H16 00000042
+
+Symbol: H8_H16
+   Definitions
+      At line 30 in file CS2_CS8.s
+   Uses
+      At line 47 in file bai1.s
+Comment: H8_H16 used once
+LOOP6 0000000A
+
+Symbol: LOOP6
+   Definitions
+      At line 8 in file CS2_CS8.s
+   Uses
+      At line 24 in file CS2_CS8.s
+Comment: LOOP6 used once
+MYCODE1 00000000
+
+Symbol: MYCODE1
+   Definitions
+      At line 1 in file CS2_CS8.s
+   Uses
+      None
+Comment: MYCODE1 unused
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Coso16 0000000C
+
+Symbol: Coso16
+   Definitions
+      At line 9 in file bai1.s
+   Uses
+      At line 58 in file bai1.s
+Comment: Coso16 used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 3 in file bai1.s
+   Uses
+      None
+Comment: RESET unused
+SPT16 00000010
+
+Symbol: SPT16
+   Definitions
+      At line 10 in file bai1.s
+   Uses
+      At line 57 in file bai1.s
+Comment: SPT16 used once
+chon 00000008
+
+Symbol: chon
+   Definitions
+      At line 7 in file bai1.s
+   Uses
+      At line 37 in file bai1.s
+Comment: chon used once
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+CoSo2_CS8 00000008
+
+Symbol: CoSo2_CS8
+   Definitions
+      At line 18 in file bai1.s
+   Uses
+      At line 4 in file CS2_CS8.s
+Comment: CoSo2_CS8 used once
+Coso10 00000004
+
+Symbol: Coso10
+   Definitions
+      At line 15 in file bai1.s
+   Uses
+      At line 119 in file bai1.s
+Comment: Coso10 used once
+Coso10_CS2 00000000
+
+Symbol: Coso10_CS2
+   Definitions
+      At line 13 in file bai1.s
+   Uses
+      At line 99 in file bai1.s
+Comment: Coso10_CS2 used once
+DULIEU816 00000012
+
+Symbol: DULIEU816
+   Definitions
+      At line 22 in file bai1.s
+   Uses
+      None
+Comment: DULIEU816 unused
+RESET1 00000000
+
+Symbol: RESET1
+   Definitions
+      At line 12 in file bai1.s
+   Uses
+      None
+Comment: RESET1 unused
+SPT28 00000011
+
+Symbol: SPT28
+   Definitions
+      At line 19 in file bai1.s
+   Uses
+      At line 3 in file CS2_CS8.s
+Comment: SPT28 used once
+SPT816 00000016
+
+Symbol: SPT816
+   Definitions
+      At line 23 in file bai1.s
+   Uses
+      None
+Comment: SPT816 unused
+7 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Coso1002 00000001
+
+Symbol: Coso1002
+   Definitions
+      At line 28 in file bai1.s
+   Uses
+      At line 100 in file bai1.s
+Comment: Coso1002 used once
+Coso1016 00000002
+
+Symbol: Coso1016
+   Definitions
+      At line 29 in file bai1.s
+   Uses
+      At line 120 in file bai1.s
+Comment: Coso1016 used once
+Coso1602 00000000
+
+Symbol: Coso1602
+   Definitions
+      At line 27 in file bai1.s
+   Uses
+      At line 61 in file bai1.s
+Comment: Coso1602 used once
+Coso28 00000003
+
+Symbol: Coso28
+   Definitions
+      At line 30 in file bai1.s
+   Uses
+      At line 5 in file CS2_CS8.s
+Comment: Coso28 used once
+KQ 00000000
+
+Symbol: KQ
+   Definitions
+      At line 26 in file bai1.s
+   Uses
+      None
+Comment: KQ unused
+KQ816 00000004
+
+Symbol: KQ816
+   Definitions
+      At line 31 in file bai1.s
+   Uses
+      None
+Comment: KQ816 unused
+6 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+H10_H16 000000A8
+
+Symbol: H10_H16
+   Definitions
+      At line 118 in file bai1.s
+   Uses
+      At line 43 in file bai1.s
+Comment: H10_H16 used once
+H10_H2 0000007C
+
+Symbol: H10_H2
+   Definitions
+      At line 98 in file bai1.s
+   Uses
+      At line 41 in file bai1.s
+Comment: H10_H2 used once
+H16_H2 00000026
+
+Symbol: H16_H2
+   Definitions
+      At line 56 in file bai1.s
+   Uses
+      At line 39 in file bai1.s
+Comment: H16_H2 used once
+H16_H8 000000D4
+
+Symbol: H16_H8
+   Definitions
+      At line 136 in file bai1.s
+   Uses
+      At line 49 in file bai1.s
+Comment: H16_H8 used once
+H2_H10 000000D6
+
+Symbol: H2_H10
+   Definitions
+      At line 140 in file bai1.s
+   Uses
+      At line 51 in file bai1.s
+Comment: H2_H10 used once
+LOOP 0000003C
+
+Symbol: LOOP
+   Definitions
+      At line 64 in file bai1.s
+   Uses
+      At line 91 in file bai1.s
+Comment: LOOP used once
+LOOP1 00000048
+
+Symbol: LOOP1
+   Definitions
+      At line 70 in file bai1.s
+   Uses
+      At line 79 in file bai1.s
+Comment: LOOP1 used once
+LOOP2 0000008A
+
+Symbol: LOOP2
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+   Definitions
+      At line 103 in file bai1.s
+   Uses
+      At line 111 in file bai1.s
+Comment: LOOP2 used once
+LOOP5 000000B6
+
+Symbol: LOOP5
+   Definitions
+      At line 123 in file bai1.s
+   Uses
+      At line 130 in file bai1.s
+Comment: LOOP5 used once
+Mycode 00000000
+
+Symbol: Mycode
+   Definitions
+      At line 32 in file bai1.s
+   Uses
+      None
+Comment: Mycode unused
+NEXT1 00000072
+
+Symbol: NEXT1
+   Definitions
+      At line 89 in file bai1.s
+   Uses
+      At line 81 in file bai1.s
+Comment: NEXT1 used once
+SAVE1 00000066
+
+Symbol: SAVE1
+   Definitions
+      At line 82 in file bai1.s
+   Uses
+      At line 86 in file bai1.s
+Comment: SAVE1 used once
+STOP1 00000078
+
+Symbol: STOP1
+   Definitions
+      At line 93 in file bai1.s
+   Uses
+      At line 66 in file bai1.s
+Comment: STOP1 used once
+STOP2 000000A2
+
+Symbol: STOP2
+   Definitions
+      At line 112 in file bai1.s
+   Uses
+      At line 105 in file bai1.s
+Comment: STOP2 used once
+THOAT 00000024
+
+Symbol: THOAT
+   Definitions
+      At line 53 in file bai1.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 3 Alphabetic symbol ordering
+Relocatable symbols
+
+      At line 26 in file CS2_CS8.s
+      At line 94 in file bai1.s
+      At line 114 in file bai1.s
+      At line 132 in file bai1.s
+
+start 00000000
+
+Symbol: start
+   Definitions
+      At line 35 in file bai1.s
+   Uses
+      At line 5 in file bai1.s
+      At line 33 in file bai1.s
+
+stop 00000024
+
+Symbol: stop
+   Definitions
+      At line 54 in file bai1.s
+   Uses
+      At line 54 in file bai1.s
+Comment: stop used once
+17 symbols
+373 symbols in table

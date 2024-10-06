@@ -1,0 +1,25 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\Developer\Projects\Microcontroller\LTHN\Lab8\Bai2\bai2.uvproj
+Project File Date:  10/06/2024
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling bai2.S...
+bai2.S(6): error: A1163E: Unknown opcode data2,data,readonly , expecting opcode or Macro
+".\bai2.axf" - 1 Errors, 0 Warning(s).
+Target not created
+Build target 'Target 1'
+assembling bai2.S...
+bai2.S(5): error: A1163E: Unknown opcode chuoi , expecting opcode or Macro
+".\bai2.axf" - 1 Errors, 0 Warning(s).
+Target not created
+Build target 'Target 1'
+assembling bai2.S...
+linking...
+.\bai2.sct(8): warning: L6314W: No section matches pattern *(InRoot$$Sections).
+Program Size: Code=44 RO-data=48 RW-data=4 ZI-data=0  
+".\bai2.axf" - 0 Errors, 1 Warning(s).

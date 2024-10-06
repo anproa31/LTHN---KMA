@@ -1,0 +1,107 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET,DATA,READONLY
+    2 00000000 20001000        DCD              0X20001000
+    3 00000004 00000000        DCD              start
+    4 00000008         
+    5 00000008 00000011 
+                       N       DCD              17
+    6 0000000C                 AREA             MYCODE, CODE,READONLY
+    7 00000000                 ENTRY
+    8 00000000         
+    9 00000000         start
+   10 00000000         ;=====================
+   11 00000000         
+   12 00000000 F04F 0000       MOV              R0,#0
+   13 00000004 F85F 1004       LDR              R1,N
+   14 00000008 F04F 0205       MOV              R2,#5
+   15 0000000C         chiahet
+   16 0000000C 428A            CMP              R2,R1
+   17 0000000E D803            BHI              thoat
+   18 00000010 4410            ADD              R0,R2       ;R0 =R0 + R2 = 5
+   19 00000012 F102 0205       ADD              R2,#5
+   20 00000016 E7F9            B                chiahet
+   21 00000018         
+   22 00000018         thoat
+   23 00000018         
+   24 00000018 E7FE    stop    B                stop
+   25 0000001A         
+   26 0000001A                 END
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai4.d
+ -o.\bai4.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai4.lst bai4.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+N 00000008
+
+Symbol: N
+   Definitions
+      At line 5 in file bai4.s
+   Uses
+      At line 13 in file bai4.s
+Comment: N used once
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file bai4.s
+   Uses
+      None
+Comment: RESET unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+MYCODE 00000000
+
+Symbol: MYCODE
+   Definitions
+      At line 6 in file bai4.s
+   Uses
+      None
+Comment: MYCODE unused
+chiahet 0000000C
+
+Symbol: chiahet
+   Definitions
+      At line 15 in file bai4.s
+   Uses
+      At line 20 in file bai4.s
+Comment: chiahet used once
+start 00000000
+
+Symbol: start
+   Definitions
+      At line 9 in file bai4.s
+   Uses
+      At line 3 in file bai4.s
+Comment: start used once
+stop 00000018
+
+Symbol: stop
+   Definitions
+      At line 24 in file bai4.s
+   Uses
+      At line 24 in file bai4.s
+Comment: stop used once
+thoat 00000018
+
+Symbol: thoat
+   Definitions
+      At line 22 in file bai4.s
+   Uses
+      At line 17 in file bai4.s
+Comment: thoat used once
+5 symbols
+337 symbols in table

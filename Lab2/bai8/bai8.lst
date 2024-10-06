@@ -1,0 +1,186 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         
+    2 00000000                 AREA             RESET, DATA, READONLY
+    3 00000000 20001000        DCD              0x20001000
+    4 00000004 00000000        DCD              Reset_Handler
+    5 00000008                 ALIGN
+    6 00000008 00000003 
+              00000004 
+              00000005 matran  DCD              3,4,5
+    7 00000014 00000006 
+              00000005 
+              00000004         DCD              6,5,4
+    8 00000020 00000003 
+              00000004 
+              00000005         DCD              3,4,5
+    9 0000002C         
+   10 0000002C         
+   11 0000002C                 AREA             RESET, DATA, READWRITE
+   12 0000002C 00000000 
+                       Tong    DCD              0
+   13 00000030         
+   14 00000030                 AREA             MYCODE, CODE, READONLY
+   15 00000000                 EXPORT           Reset_Handler
+   16 00000000                 ENTRY
+   17 00000000         
+   18 00000000         Reset_Handler
+   19 00000000         ;============================
+   20 00000000 00000009 
+                       soPhantu
+                               EQU              9
+   21 00000000 490D            LDR              R1,=matran
+   22 00000002 F04F 0209       LDR              R2,=soPhantu
+   23 00000006 F04F 0000       MOV              R0,#0       ;tong
+   24 0000000A         loop
+   25 0000000A 2A00            CMP              R2,#0
+   26 0000000C D010            BEQ              Thoat
+   27 0000000E         
+   28 0000000E F851 3B04       LDR              R3,[R1],#4
+   29 00000012 F04F 0405       MOV              R4,#5
+   30 00000016         Chia5
+   31 00000016 42A3            CMP              R3,R4
+   32 00000018 D003            BEQ              ChiaHet
+   33 0000001A DB06            BLT              Khongchiahet
+   34 0000001C F104 0405       ADD              R4,#5
+   35 00000020 E7F9            B                Chia5
+   36 00000022         ChiaHet
+   37 00000022 4418            ADD              R0,R3
+   38 00000024 F1A2 0201       SUB              R2,#1
+   39 00000028 E7EF            B                loop
+   40 0000002A         Khongchiahet
+   41 0000002A F1A2 0201       SUB              R2,#1
+   42 0000002E E7EC            B                loop
+   43 00000030         Thoat
+   44 00000030 4E02            LDR              R6,=Tong
+   45 00000032 6030            STR              R0,[R6]
+   46 00000034 DF11            SWI              &11
+   47 00000036         ;============================
+   48 00000036                 END
+              00 00 00000000 
+              00000000 
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai8.d
+ -o.\bai8.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai8.lst bai8.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file bai8.s
+   Uses
+      None
+Comment: RESET unused
+Tong 0000002C
+
+Symbol: Tong
+   Definitions
+      At line 12 in file bai8.s
+   Uses
+      At line 44 in file bai8.s
+Comment: Tong used once
+matran 00000008
+
+Symbol: matran
+   Definitions
+      At line 6 in file bai8.s
+   Uses
+      At line 21 in file bai8.s
+Comment: matran used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Chia5 00000016
+
+Symbol: Chia5
+   Definitions
+      At line 30 in file bai8.s
+   Uses
+      At line 35 in file bai8.s
+Comment: Chia5 used once
+ChiaHet 00000022
+
+Symbol: ChiaHet
+   Definitions
+      At line 36 in file bai8.s
+   Uses
+      At line 32 in file bai8.s
+Comment: ChiaHet used once
+Khongchiahet 0000002A
+
+Symbol: Khongchiahet
+   Definitions
+      At line 40 in file bai8.s
+   Uses
+      At line 33 in file bai8.s
+Comment: Khongchiahet used once
+MYCODE 00000000
+
+Symbol: MYCODE
+   Definitions
+      At line 14 in file bai8.s
+   Uses
+      None
+Comment: MYCODE unused
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 18 in file bai8.s
+   Uses
+      At line 4 in file bai8.s
+      At line 15 in file bai8.s
+
+Thoat 00000030
+
+Symbol: Thoat
+   Definitions
+      At line 43 in file bai8.s
+   Uses
+      At line 26 in file bai8.s
+Comment: Thoat used once
+loop 0000000A
+
+Symbol: loop
+   Definitions
+      At line 24 in file bai8.s
+   Uses
+      At line 39 in file bai8.s
+      At line 42 in file bai8.s
+
+7 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+soPhantu 00000009
+
+Symbol: soPhantu
+   Definitions
+      At line 20 in file bai8.s
+   Uses
+      At line 22 in file bai8.s
+Comment: soPhantu used once
+1 symbol
+343 symbols in table

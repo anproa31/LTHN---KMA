@@ -1,0 +1,164 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;; TINH CHINH HOP CHAP K CUA N
+    2 00000000                 AREA             RESET, DATA, READONLY
+    3 00000000 20002000        DCD              0X20002000
+    4 00000004 00000000        DCD              MAIN
+    5 00000008 00000005 
+                       N       EQU              5
+    6 00000008 00000003 
+                       K       EQU              3
+    7 00000008                 AREA             KETQUA, DATA, READWRITE
+    8 00000000 00000000 
+                       KQ      DCD              0
+    9 00000004                 AREA             HUU, CODE, READONLY
+   10 00000000                 ENTRY
+   11 00000000         MAIN
+   12 00000000 480E            LDR              R0, =KQ
+   13 00000002 F04F 0105       LDR              R1, =N
+   14 00000006 F04F 0203       LDR              R2, =K
+   15 0000000A EBA1 0302       SUB              R3, R1, R2  ; (N-K)
+   16 0000000E 460E            MOV              R6, R1      ; TRUYEN N VAO R6 D
+                                                            E TINH N!
+   17 00000010 F7FF FFFE       BL               GIAITHUA
+   18 00000014 4629            MOV              R1, R5      ; DUA N! VAO R1
+   19 00000016 461E            MOV              R6, R3      ; TRUYEN (N-K) VAO 
+                                                            R6 DE TINH GIAI THU
+                                                            A
+   20 00000018 F7FF FFFE       BL               GIAITHUA
+   21 0000001C 462A            MOV              R2, R5
+   22 0000001E FB91 F3F2       SDIV             R3,R1,R2
+   23 00000022 E00A            B                STOP
+   24 00000024         GIAITHUA
+                               PROC
+   25 00000024 F04F 0401       MOV              R4, #1      ; I. 
+   26 00000028 F04F 0501       MOV              R5, #1      ; KQ GIAI THUA
+   27 0000002C         LOOP
+   28 0000002C FB05 F504       MUL              R5, R4
+   29 00000030 F104 0401       ADD              R4, #1
+   30 00000034 42B4            CMP              R4, R6      ; R6 THAM SO TRUYEN
+                                                             VAO DE TINH GIAI T
+                                                            HUA
+   31 00000036 DDF9            BLE              LOOP
+   32 00000038 4770            BX               LR
+   33 0000003A                 ENDP
+   34 0000003A         STOP
+   35 0000003A                 END
+              00 00 00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai3.d
+ -o.\bai3.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai3.lst bai3.S
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file bai3.S
+   Uses
+      None
+Comment: RESET unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+KETQUA 00000000
+
+Symbol: KETQUA
+   Definitions
+      At line 7 in file bai3.S
+   Uses
+      None
+Comment: KETQUA unused
+KQ 00000000
+
+Symbol: KQ
+   Definitions
+      At line 8 in file bai3.S
+   Uses
+      At line 12 in file bai3.S
+Comment: KQ used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+GIAITHUA 00000024
+
+Symbol: GIAITHUA
+   Definitions
+      At line 24 in file bai3.S
+   Uses
+      At line 17 in file bai3.S
+      At line 20 in file bai3.S
+
+HUU 00000000
+
+Symbol: HUU
+   Definitions
+      At line 9 in file bai3.S
+   Uses
+      None
+Comment: HUU unused
+LOOP 0000002C
+
+Symbol: LOOP
+   Definitions
+      At line 27 in file bai3.S
+   Uses
+      At line 31 in file bai3.S
+Comment: LOOP used once
+MAIN 00000000
+
+Symbol: MAIN
+   Definitions
+      At line 11 in file bai3.S
+   Uses
+      At line 4 in file bai3.S
+Comment: MAIN used once
+STOP 0000003A
+
+Symbol: STOP
+   Definitions
+      At line 34 in file bai3.S
+   Uses
+      At line 23 in file bai3.S
+Comment: STOP used once
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+K 00000003
+
+Symbol: K
+   Definitions
+      At line 6 in file bai3.S
+   Uses
+      At line 14 in file bai3.S
+Comment: K used once
+N 00000005
+
+Symbol: N
+   Definitions
+      At line 5 in file bai3.S
+   Uses
+      At line 13 in file bai3.S
+Comment: N used once
+2 symbols
+342 symbols in table

@@ -1,0 +1,214 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 AREA             RESET , DATA ,READONLY
+    2 00000000 20001000        DCD              0x20001000  ; do dai du lieu la
+                                                             bao nhieu
+    3 00000004 00000000        DCD              start       ; 
+    4 00000008                 ALIGN
+    5 00000008         ; khai bao vung nho 
+    6 00000008         
+    7 00000008 00000003 
+              00000002 
+              00000001 
+              00000004 
+              00000005 chuoi   DCD              3,2,1,4,5
+    8 0000001C         
+    9 0000001C         ;khai bao vung ma lenh 
+   10 0000001C                 AREA             KQ, DATA ,READWRITE
+   11 00000000 00000000 
+                       max     DCD              0
+   12 00000004 00000000 
+                       min     DCD              0
+   13 00000008                 AREA             mycode, CODE ,READONLY
+   14 00000000                 EXPORT           start
+   15 00000000                 ENTRY
+   16 00000000         start
+   17 00000000         ;=========================================
+   18 00000000 00000005 
+                       pt      EQU              5
+   19 00000000 4A0D            LDR              R2,=chuoi   ;LAY DIA CHI DAU TI
+                                                            EN CUA CHUOI
+   20 00000002 F04F 0305       LDR              R3,=pt      ;R3 = 5
+   21 00000006 F1A3 0301       SUB              R3, #1
+   22 0000000A F852 5B04       LDR              R5,[R2], #4 ;0x00000000 + 0 => 
+                                                            R5 = 3
+   23 0000000E 4628            MOV              R0,R5       ;max
+   24 00000010 4629            MOV              R1,R5       ;min
+   25 00000012         loop
+   26 00000012 2B00            CMP              R3,#0
+   27 00000014 D00E            BEQ              stop
+   28 00000016 F852 5B04       LDR              R5,[R2], #4 ;dung de tinh cac g
+                                                            ia tri lien tiep tr
+                                                            ong chuooi
+   29 0000001A 4285            CMP              R5,R0       ;kiem tra xem R5 Co
+                                                             lon hon R0 HAY K 
+   30 0000001C DC02            BGT              PMAX
+   31 0000001E 428D            CMP              R5,R1
+   32 00000020 DB04            BLT              PMIN        ;kiem tra xem R5 Co
+                                                             NHO hon R1 HAY K
+   33 00000022         ;SUB R3,#1 ; khi nhay se sang phan tu tiep theo chuoi so
+                        se giam di 1 
+   34 00000022 E7F6            B                loop
+   35 00000024         
+   36 00000024         PMAX
+   37 00000024 4628            MOV              R0,R5       ; gan R5 cho R0
+   38 00000026 F1A3 0301       SUB              R3,#1       ; khi nhay se sang 
+                                                            phan tu tiep theo c
+                                                            huoi so se giam di 
+                                                            1
+   39 0000002A E7F2            B                loop
+   40 0000002C         PMIN
+   41 0000002C 4629            MOV              R1,R5       ; gan R5 cho R1
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   42 0000002E F1A3 0301       SUB              R3,#1       ; khi nhay se sang 
+                                                            phan tu tiep theo c
+                                                            huoi so se giam di 
+                                                            1
+   43 00000032 E7EE            B                loop
+   44 00000034         
+   45 00000034 E7FE    stop    B                stop
+   46 00000036         
+   47 00000036         
+   48 00000036                 END
+              00 00 00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai2.d
+ -o.\bai2.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai2.lst bai2.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 1 in file bai2.s
+   Uses
+      None
+Comment: RESET unused
+chuoi 00000008
+
+Symbol: chuoi
+   Definitions
+      At line 7 in file bai2.s
+   Uses
+      At line 19 in file bai2.s
+Comment: chuoi used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+KQ 00000000
+
+Symbol: KQ
+   Definitions
+      At line 10 in file bai2.s
+   Uses
+      None
+Comment: KQ unused
+max 00000000
+
+Symbol: max
+   Definitions
+      At line 11 in file bai2.s
+   Uses
+      None
+Comment: max unused
+min 00000004
+
+Symbol: min
+   Definitions
+      At line 12 in file bai2.s
+   Uses
+      None
+Comment: min unused
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+PMAX 00000024
+
+Symbol: PMAX
+   Definitions
+      At line 36 in file bai2.s
+   Uses
+      At line 30 in file bai2.s
+Comment: PMAX used once
+PMIN 0000002C
+
+Symbol: PMIN
+   Definitions
+      At line 40 in file bai2.s
+   Uses
+      At line 32 in file bai2.s
+Comment: PMIN used once
+loop 00000012
+
+Symbol: loop
+   Definitions
+      At line 25 in file bai2.s
+   Uses
+      At line 34 in file bai2.s
+      At line 39 in file bai2.s
+      At line 43 in file bai2.s
+
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 13 in file bai2.s
+   Uses
+      None
+Comment: mycode unused
+start 00000000
+
+Symbol: start
+   Definitions
+      At line 16 in file bai2.s
+   Uses
+      At line 3 in file bai2.s
+      At line 14 in file bai2.s
+
+stop 00000034
+
+Symbol: stop
+   Definitions
+      At line 45 in file bai2.s
+   Uses
+      At line 27 in file bai2.s
+      At line 45 in file bai2.s
+
+6 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+pt 00000005
+
+Symbol: pt
+   Definitions
+      At line 18 in file bai2.s
+   Uses
+      At line 20 in file bai2.s
+Comment: pt used once
+1 symbol
+344 symbols in table

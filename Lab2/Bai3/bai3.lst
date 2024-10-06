@@ -1,0 +1,152 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ; Khai bao doan du lieu
+    2 00000000                 AREA             RESET, DATA, READONLY
+    3 00000000 20001000        DCD              0x20001000  ; stack pointer val
+                                                            ue when stack is em
+                                                            pty
+    4 00000004 00000000        DCD              Reset_Handler ; reset vector
+    5 00000008         
+    6 00000008         ;ALIGN
+    7 00000008         
+    8 00000008         
+    9 00000008 00000001 
+              00000002 
+              00000003 
+              00000004 
+              00000005 
+              00000006 arr     DCD              1,2,3,4,5,6
+   10 00000020         
+   11 00000020         ; Khai bao doan ma lenh
+   12 00000020                 AREA             MYCODE, CODE, READONLY
+   13 00000000         
+   14 00000000                 ENTRY                        ;Khai bao diem vao 
+                                                            chuong trinh
+   15 00000000                 EXPORT           Reset_Handler
+   16 00000000         
+   17 00000000         Reset_Handler
+   18 00000000         
+   19 00000000         ;===================
+   20 00000000         
+   21 00000000         
+   22 00000000 00000006 
+                       nums    EQU              6
+   23 00000000 F04F 0000       MOV              R0, #0      ; Thanh ghi tong
+   24 00000004 4909            LDR              R1, =arr    ; Lay dia chi cua a
+                                                            rr
+   25 00000006 F04F 0201       MOV              R2, #1      ; Thanh ghi dem
+   26 0000000A F04F 0306       LDR              R3, =nums   ; Lay gia tri so ph
+                                                            an tu
+   27 0000000E         
+   28 0000000E         sum
+   29 0000000E 429A            CMP              R2,R3
+   30 00000010 D805            BHI              avg
+   31 00000012 F851 4B04       LDR              R4,[R1],#4
+   32 00000016 4420            ADD              R0,R4       ;
+   33 00000018 F102 0201       ADD              R2,#1
+   34 0000001C E7F7            B                sum
+   35 0000001E         
+   36 0000001E         avg
+   37 0000001E FBB0 F5F3       UDIV             R5, R0, R3  ; So nguyen
+   38 00000022 FB05 F603       MUL              R6, R5, R3  ; R5 * R3 -> R6
+   39 00000026 EBA0 0606       SUB              R6, R0, R6  ; So du = R0 - R5 *
+                                                             R3
+   40 0000002A         
+   41 0000002A E7FE    stop    B                stop
+   42 0000002C         ;===================
+   43 0000002C                 END
+              00000000 
+Command Line: --debug --xref --cpu=Cortex-M3 --apcs=interwork --depend=.\bai3.d
+ -o.\bai3.o -IC:\Keil_v5\ARM\RV31\INC -IC:\Keil_v5\ARM\CMSIS\Include -IC:\Keil_
+v5\ARM\Inc\ST\STM32F10x --list=.\bai3.lst bai3.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 2 in file bai3.s
+   Uses
+      None
+Comment: RESET unused
+arr 00000008
+
+Symbol: arr
+   Definitions
+      At line 9 in file bai3.s
+   Uses
+      At line 24 in file bai3.s
+Comment: arr used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+MYCODE 00000000
+
+Symbol: MYCODE
+   Definitions
+      At line 12 in file bai3.s
+   Uses
+      None
+Comment: MYCODE unused
+Reset_Handler 00000000
+
+Symbol: Reset_Handler
+   Definitions
+      At line 17 in file bai3.s
+   Uses
+      At line 4 in file bai3.s
+      At line 15 in file bai3.s
+
+avg 0000001E
+
+Symbol: avg
+   Definitions
+      At line 36 in file bai3.s
+   Uses
+      At line 30 in file bai3.s
+Comment: avg used once
+stop 0000002A
+
+Symbol: stop
+   Definitions
+      At line 41 in file bai3.s
+   Uses
+      At line 41 in file bai3.s
+Comment: stop used once
+sum 0000000E
+
+Symbol: sum
+   Definitions
+      At line 28 in file bai3.s
+   Uses
+      At line 34 in file bai3.s
+Comment: sum used once
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+nums 00000006
+
+Symbol: nums
+   Definitions
+      At line 22 in file bai3.s
+   Uses
+      At line 26 in file bai3.s
+Comment: nums used once
+1 symbol
+340 symbols in table

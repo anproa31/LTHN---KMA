@@ -1,0 +1,16 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+D:\Developer\Projects\Microcontroller\LTHN\Lab6\Bai5\bai5.uvproj
+Project File Date:  10/06/2024
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling Bai5.s...
+Bai5.s(32): warning: A1581W: Added 2 bytes of padding at address 0x2e
+linking...
+.\bai5.sct(8): warning: L6314W: No section matches pattern *(InRoot$$Sections).
+Program Size: Code=60 RO-data=24 RW-data=4 ZI-data=0  
+".\bai5.axf" - 0 Errors, 2 Warning(s).
