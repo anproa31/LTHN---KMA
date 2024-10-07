@@ -4,18 +4,16 @@
 ARM Macro Assembler    Page 1 
 
 
-    1 00000000         ;tìm chieu dài cua mot chuoi ki tu ket thúc
+    1 00000000         
     2 00000000                 AREA             RESET, DATA, READONLY
     3 00000000 20002000        DCD              0x20002000
     4 00000004 00000000        DCD              start
     5 00000008                 ALIGN
-    6 00000008 4E 47 55 
-              59 45 4E 
-              20 56 41 
-              4E 20 4D 
-              49 4E 48 
-              00       CHUOIKT DCB              "NGUYEN VAN MINH",0
-    7 00000018                 AREA             KETQUA, DATA,READWRITE
+    6 00000008 42 55 49 
+              20 51 55 
+              4F 43 20 
+              41 4E 00 CHUOIKT DCB              "BUI QUOC AN",0
+    7 00000014                 AREA             KETQUA, DATA,READWRITE
     8 00000000 00      KQ      DCB              0
     9 00000001                 AREA             MYCODE, CODE, READONLY
    10 00000000                 ENTRY

@@ -2,7 +2,7 @@
 	AREA RESET, DATA, READONLY
 		DCD 0X20002000
 		DCD start
-chuoi DCB "   Nguyen Van Minh       ",0
+chuoi DCB "   BUI QUOC AN       ",0
 
 	AREA KETQUA, DATA, READWRITE
 KQ DCB 0

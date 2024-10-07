@@ -6,7 +6,7 @@ ARM Macro Assembler    Page 1
 
     1 00000000         ;CR  EQU 0x0D; KHAI BAO KY TUC KET THUC
     2 00000000                 AREA             RESET, DATA, READONLY
-    3 00000000 20002000        DCD              0X20002000
+    3 00000000 20000000        DCD              0X20000000
     4 00000004 00000000        DCD              start
     5 00000008 00000002 
                        CHON    DCD              2
