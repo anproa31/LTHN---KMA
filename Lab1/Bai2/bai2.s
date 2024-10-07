@@ -10,7 +10,7 @@ start
 ;======================
 	MOV R0,#0 ;TONG CHAN R0 = 0
 	MOV R1,#0 ; TONG LE R1 =0
-	LDR R2, N ; R2 = 3
+	LDR R2, N ; R2 = 6
 	MOV R3,#1  ; R3 = 1
 	MOV R4,#2	; R4 = 2
 	

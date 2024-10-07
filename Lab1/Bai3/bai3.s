@@ -16,7 +16,8 @@ start
 ;5X4X3X2X1
 giaithua
 	CMP R3,R2
-	BHI stop
+	BHI stop ;BHI is unsigned compare
+	;BGT stop ;BGT is signed compare
 	MUL R1,R3
 	ADD R3,#1
 	B giaithua

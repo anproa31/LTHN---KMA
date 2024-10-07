@@ -20,7 +20,7 @@ start
 	BLE thoat
 looptru	
 	CMP R1,R2 ;kiem tra
-	BLT hoandoi
+	BLT hoandoi ;less than
 	
 tieptuc
 	SUB R1,R2 
