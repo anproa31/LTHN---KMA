@@ -25,7 +25,7 @@ Reset_Handler
 
 nums EQU 6
 	MOV R0, #0 ; Thanh ghi tong
-	LDR R1, =arr ; Lay dia chi cua arr
+	LDR R1, =arr ; Lay dia chi dau tien cua arr
 	MOV R2, #1 ; Thanh ghi dem
 	LDR R3, =nums; Lay gia tri so phan tu
 	

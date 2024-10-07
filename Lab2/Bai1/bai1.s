@@ -26,7 +26,7 @@ loop
 	B loop
 thoat
 	LDR R5, =tong
-	STR R0,[R5] ; luu tru gia tri  R0 vao dia chi R5
+	STR R0,[R5] ; luu tru gia tri  R0 vao bo nho dia chi R5
 	SWI &11 ; ngat thong bao ket thuc chuong trinh
 ;===================
 	END
