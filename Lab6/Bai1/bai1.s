@@ -1,11 +1,11 @@
-;Vi?t các chuong trình so sánh 2 xâu (cài d?t theo d? dài)
+;Vi?t cï¿½c chuong trï¿½nh so sï¿½nh 2 xï¿½u (cï¿½i d?t theo d? dï¿½i)
 	AREA RESET,DATA,READONLY
 		DCD 0x20001000
 		DCD start
 	ALIGN
-CHUOIA 	DCD 5
+CHUOIA 	DCD 4
 		DCB "MINH"
-CHUOIB 	DCD 5
+CHUOIB 	DCD 4
 		DCB "MINH"
 
 	AREA KETQUA,DATA,READWRITE

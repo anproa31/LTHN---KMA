@@ -8,7 +8,6 @@ Project File Date:  10/06/2024
 
 <h2>Output:</h2>
 Build target 'Target 1'
-assembling bai1.s...
 linking...
 .\bai1.sct(8): warning: L6314W: No section matches pattern *(InRoot$$Sections).
 Program Size: Code=72 RO-data=24 RW-data=4 ZI-data=0  

@@ -17,7 +17,7 @@ MAIN
 	MOV R3,#0
 	LDRB R4,SPT
 	LDR R5,=KQ
-	ADD R5,#10
+	ADD R5,#10 //add memory address to point to the next byte
 	
 LOOP
 	LDRB R1,[R0],#1
@@ -33,14 +33,17 @@ NEXT
 	BGT	LE
 	BLT	CHAN
 	BEQ THOAT
+
 LE
 	MOV R0,#1
 	STRB R0,[R5]
 	B THOAT
+
 CHAN
 	MOV R0,#0
 	STRB R0,[R5]
 	B THOAT
+
 THOAT
 	SWI &11
 ;==========================================
