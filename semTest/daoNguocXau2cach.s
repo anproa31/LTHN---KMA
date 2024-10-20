@@ -1,0 +1,58 @@
+    AREA RESET, DATA, READONLY
+        DCD 0X20001000
+        DCD MAIN
+XAU1 DCB 0, "Toi yeu kma", 0
+XAU2 DCB 11, "Toi yeu kma"
+
+    AREA KETQUA, DATA, READWRITE
+KQ1 SPACE 100
+KQ2 SPACE 100
+
+    AREA MYCODE, CODE, READONLY
+    ENTRY
+
+MAIN
+    LDR R0, =XAU1
+    LDRB R1, [R0], #1
+    LDR R2, =XAU2
+    LDRB R6, [R2], #1 ; DO DAI
+	LDRB R3, [R2, R6]
+    
+    LDR R4, =KQ1
+    LDR R5, =KQ2
+	
+CACH1
+	LDRB R1, [R0], #1
+	
+	CMP R1, #0
+	BEQ REVERT1
+	
+	B CACH1
+
+REVERT1
+	SUB R0, #2
+LOOP
+	LDRB R1, [R0]
+	STRB R1, [R4], #1
+	
+	CMP R1, #0
+	BEQ	ENDREVERT1
+	
+	SUB R0, #1
+	B LOOP
+
+ENDREVERT1
+
+CACH2
+	CMP R6, #0
+	BEQ STOP
+	
+	SUB R6, #1
+	LDRB R3, [R2, R6]
+	STRB R3, [R5], #1
+
+	B CACH2
+
+STOP B STOP
+    
+    END

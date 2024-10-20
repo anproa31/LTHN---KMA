@@ -1,0 +1,72 @@
+	AREA RESET, DATA, READONLY
+		DCD 0X20001000
+		DCD MAIN
+XAU DCB "       k ma 4ao", 0
+	
+	AREA KETQUA, DATA, READWRITE
+KQ DCB 0	
+
+	AREA MYCODE, CODE, READONLY
+	ENTRY
+
+MAIN
+	LDR R0, =XAU
+	LDRB R1, [R0]
+	LDR R2, =KQ
+	
+LOOP
+	LDRB R1, [R0], #1
+	
+	CMP R1, #0
+	BEQ KETTHUC
+	
+	CMP R1, #' '
+	BEQ LOOP
+	
+	CMP R1, #'a'
+	BEQ UPCASE
+	
+	STRB R1, [R2], #1
+	B NEXT
+
+UPCASE
+	CMP R1, #'z' 
+	BLE NEXT
+	
+	SUB R1, #32
+	STRB R1, [R2], #1
+	
+	B NEXT
+
+NEXT
+	LDRB R1, [R0], #1
+	
+	CMP R1, #0
+	BEQ KETTHUC
+	
+	STRB R1, [R2], #1
+	
+	CMP R1, #' '
+	BEQ LOOP
+	
+	B NEXT
+	
+KETTHUC 
+	SUB R0, #2
+	LDRB R1, [R0]
+	
+	CMP R1, #' '
+	BEQ XOACACH
+
+	B STOP
+	
+XOACACH
+	SUB R2, #1
+	MOV R1, #0
+	
+	STRB R1, [R2]
+	
+
+STOP B STOP
+
+	END
