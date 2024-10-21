@@ -1,7 +1,7 @@
     AREA RESET, DATA, READONLY
         DCD 0X20001000
         DCD MAIN
-XAURO DCB "Sinh Vien KMA", 0
+XAURO DCB "Sinh Vien KM8A", 0
 K DCB 3
 
     AREA KETQUA, DATA, READWRITE
@@ -14,8 +14,12 @@ MAHOA PROC
     CMP R5, #' '
     BEQ DUNGMH
     
+	MOV R6, R5 ;; LUU GIU TAM THOI R5
     ADD R5, R1
-    
+	
+	CMP R6, #'9'
+	BLE MH_NUM
+
     CMP R5, #'Z'
     BLE DUNGMH
     
@@ -24,8 +28,16 @@ MAHOA PROC
     
     CMP R5, #'z'
     BLE DUNGMH
-    
+	
     B MH_LOW
+
+MH_NUM
+	CMP R6, #'0'
+	BLT DUNGMH
+	
+	SUB R5, #'9'
+	ADD R5, #'0'
+	B DUNGMH
 
 MH_UP
     SUB R5, #'Z'
@@ -63,3 +75,4 @@ LOOP
 STOP B STOP
 
     END
+	
