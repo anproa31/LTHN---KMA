@@ -1,7 +1,7 @@
 	AREA RESET, DATA, READONLY
 		DCD 0X20001000
 		DCD MAIN
-XAU DCB "       k ma $ao", 0
+XAU DCB "k mA d#O", 0
 	
 	AREA KETQUA, DATA, READWRITE
 KQ DCB 0	
@@ -43,9 +43,21 @@ NEXT
 	
 	CMP R1, #0
 	BEQ KETTHUC
+
+	CMP R1, #'A'
+	BGE LOWCASE
 	
+	B NEXT1
+
+LOWCASE
+	CMP R1, #'Z'
+	BGT NEXT1
+	
+	ADD R1, #32
+
+NEXT1
 	STRB R1, [R2], #1
-	
+
 	CMP R1, #' '
 	BEQ LOOP
 	
@@ -70,3 +82,4 @@ XOACACH
 STOP B STOP
 
 	END
+	
